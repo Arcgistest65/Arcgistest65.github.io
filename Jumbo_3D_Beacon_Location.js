@@ -41,6 +41,8 @@ class Map extends HTMLElement {
           "esri/widgets/Editor"
         ], (FeatureLayer,CustomContent,WebScene,SceneView,Editor
       ) => {
+                    
+                    
       var oXHR = new XMLHttpRequest();
 
       // Initiate request.
@@ -50,6 +52,8 @@ class Map extends HTMLElement {
           "https://arcgistest65.github.io/Arcgistest65/DeviceLocation.json",
           true);  // get json file.
       oXHR.send();
+                    
+      var coordinates;
 
       function reportStatus() {
         if (oXHR.readyState == 4) {  // Check if request is complete.
