@@ -155,7 +155,7 @@ class Map extends HTMLElement {
 let scriptSrc = "https://js.arcgis.com/4.18/"
 let onScriptLoaded =
     function() {
-  customElements.define("com-sap-custom-geomap3", Map);
+  customElements.define("com-sap-custom-jumbo-beacon-location", Map);
 }
 
 // SHARED FUNCTION: reuse between widgets
