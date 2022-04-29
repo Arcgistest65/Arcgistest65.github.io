@@ -142,7 +142,7 @@
 
     let scriptSrc = "https://js.arcgis.com/4.18/"
     let onScriptLoaded = function() {
-        customElements.define("com-sap-custom-geomap1", Map);
+        customElements.define("com-sap-custom-3d-arcgis", Map);
     }
 
     //SHARED FUNCTION: reuse between widgets
