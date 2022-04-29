@@ -140,7 +140,7 @@
         
     } // end of class
 
-    let scriptSrc = "https://js.arcgis.com/4.18/"
+    let scriptSrc = "https://js.arcgis.com/4.23/"
     let onScriptLoaded = function() {
         customElements.define("com-sap-custom-3d-arcgis", Map);
     }
@@ -154,11 +154,14 @@
 
     if (scriptStatus) {
         if(scriptStatus.status == "ready") {
+            console.log("Script ready--");
             onScriptLoaded();
         } else {
+            console.log("Script not ready--");
             scriptStatus.callbacks.push(onScriptLoaded);
         }
     } else {
+        console.log("No script status--");
         let scriptObject = {
             "src": scriptSrc,
             "status": "loading",
