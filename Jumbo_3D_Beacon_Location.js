@@ -65,22 +65,25 @@ class Map extends HTMLElement {
 
       const data = coordinates;
       console.log(data);
-
-      /*const map = new Map({
-          basemap: "streets-navigation-vector"
-      });*/
-
-      const webscene = new WebScene({
+                    
+                    
+      var webscene = new WebScene({
         portalItem: {
           id: "c01fd40941a741afb160e65bd234cf03"
-
         }
       });
+      
+      var view = new SceneView({
+        container: "viewDiv",
+        map: webscene
+      });
+
+      
 
 
 
       const layer = new FeatureLayer({
-        source: data.webscene(
+        source: data.map(
             (d, i) => ({
               geometry:
                   {type: "point", longitude: d.LATITUDE, latitude: d.LONGITUDE},
@@ -135,7 +138,7 @@ class Map extends HTMLElement {
       });
 
 
-      webscence.add(layer);
+      map.add(layer);
 
       const view = new SceneView(
           {container: "viewDiv", qualityProfile: "high", map: webscene});
