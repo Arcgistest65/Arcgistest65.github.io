@@ -60,6 +60,7 @@ class Map extends HTMLElement {
       }
 
       const data = coordinates;
+      console.log(data);
 
       /*const map = new Map({
           basemap: "streets-navigation-vector"
@@ -75,7 +76,7 @@ class Map extends HTMLElement {
 
 
       const layer = new FeatureLayer({
-        source: data.map(
+        source: data.webscene(
             (d, i) => ({
               geometry:
                   {type: "point", longitude: d.LATITUDE, latitude: d.LONGITUDE},
