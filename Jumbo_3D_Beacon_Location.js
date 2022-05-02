@@ -77,7 +77,7 @@ class Map extends HTMLElement {
           type: "point", // autocasts as new Point()
           x: 5.528396157,
           y: 51.61579053,
-          z: 10
+          z: 1
         };
 
         const markerSymbol = {
