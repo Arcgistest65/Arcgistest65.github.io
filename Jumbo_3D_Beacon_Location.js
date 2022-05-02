@@ -107,6 +107,8 @@ class Map extends HTMLElement {
         view: viewLayer
       });
       viewLayer.ui.add(legend, "top-right");
+      
+    });
 
   }  // end of constructor()
 
