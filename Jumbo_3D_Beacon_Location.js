@@ -4,7 +4,7 @@ let template = document.createElement("template");
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.23/"></script>
-     <style>
+    <style>
     html,
     body,
     #viewDiv {
@@ -71,38 +71,43 @@ class Map extends HTMLElement {
       
       const graphicsLayer = new GraphicsLayer();
       
-      
-      
-        const point = {
-          type: "point", // autocasts as new Point()
-          x: 5.528396157,
-          y: 51.61579053,
-          z: 1
-        };
+      const template = {
+        title: "Beacon Detail",
+        content: "Beacon ID:{name} \n Aisle assigned to:{Add details}"
+      };
 
-        const markerSymbol = {
-          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-          color: [226, 19, 40],
+      const renderer = {
+        type: "simple",
+        field: "name",
+        symbol: {
+          type: "simple-marker",
+          color: "orange",
           outline: {
-            // autocasts as new SimpleLineSymbol()
-            color: [255, 0, 0],
-            width: 100
+            color: "white"
           }
-        };
-
-        const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: markerSymbol
-        });
-
-        graphicsLayer.add(pointGraphic);
-
-      webscene.add(graphicsLayer);
+        },
+        visualVariables: [{
+          type: "size",
+          field: "name",
+          stops: [{
+              value: 4,
+              size: "8px"
+            },
+            {
+              value: 8,
+              size: "40px"
+            }
+          ]
+        }]
+      };
       
-      
-      
-    
-      
+      const geojsonlayer = new GeoJSONLayer({
+    url: "https://arcgistest65.github.io/testData.geojson",
+    copyright: "Beacons",
+        popupTemplate: template,
+        renderer: renderer
+  });
+      webscene.add(geojsonlayer);
       const legend = new Legend({
         view: viewLayer
       });
