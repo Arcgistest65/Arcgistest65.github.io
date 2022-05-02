@@ -1,0 +1,24 @@
+"features": [{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [51.61579053, 5.528396157, 10]
+  },
+  "properties": {
+    "name": "178980",
+    "Add details":"Foodmarkt Cafe"
+
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [51.61589832, 5.528815804, 10]
+  },
+  "properties": {
+    "name": "179061",
+    "Add details":"Non Food"
+
+  }
+}]
