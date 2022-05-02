@@ -72,7 +72,7 @@ class Map extends HTMLElement {
       const graphicsLayer = new GraphicsLayer();
       
       
-      // London
+      
         const point = {
           type: "point", // autocasts as new Point()
           x: 5.528396157,
