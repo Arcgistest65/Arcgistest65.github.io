@@ -1,0 +1,55 @@
+{
+    "type": "FeatureCollection",
+    "metadata": {
+        "generated": 1651474369000,
+        "url": "https://arcgistest65.github.io/testData.geojson",
+        "title": "USGS All Earthquakes, Past Month",
+        "status": 200,
+        "api": "1.10.3",
+        "count": 2
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    
+                    5.528396157,
+                  51.61579053,
+                    10
+                ]
+            },
+            "properties": {
+                "name": "178980",
+                "Add details": "Foodmarkt Cafe"
+            },
+            "id": "178980"
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    
+                    5.528815804,
+                  51.61589832,
+                    10
+                ]
+            },
+            "properties": {
+                "name": "179061",
+                "Add details": "Non Food"
+            },
+            "id": "178980"
+        }
+    ],
+    "bbox": [
+        -179.9997,
+        -61.6995,
+        -3.5699999332428,
+        179.9142,
+        82.9995,
+        629.17
+    ]
+}
