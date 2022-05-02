@@ -4,19 +4,19 @@ let template = document.createElement("template");
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.23/"></script>
-    <style>
-      html,
-      body,
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+     <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
      <body>
-    <div id="viewDiv"></div>
-  </body>
+  <div id="viewDiv"></div>
+</body>
 </html>
     `;
 
@@ -31,129 +31,82 @@ class Map extends HTMLElement {
     this._props = {};
     let that = this;
 
-            require([
-            "esri/Map",
-            "esri/views/MapView",
-            "esri/layers/FeatureLayer",
-            "esri/popup/content/CustomContent",
-           "esri/WebScene",
-          "esri/views/SceneView",
-          "esri/widgets/Editor"
-        ], (FeatureLayer,CustomContent,WebScene,SceneView,Editor
-      ) => {
-                    
-                    
-      var oXHR = new XMLHttpRequest();
-
-      // Initiate request.
-      oXHR.onreadystatechange = reportStatus;
-      oXHR.open(
-          "GET",
-          "https://arcgistest65.github.io/Arcgistest65/DeviceLocation.json",
-          true);  // get json file.
-      oXHR.send();
-                    
-      var coordinates;
-
-      function reportStatus() {
-        if (oXHR.readyState == 4) {  // Check if request is complete.
-
-
-          coordinates = this.responseText;
-        }
-      }
-
-      const data = coordinates;
-      console.log(data);
-                    
-                    
-      var webscene = new WebScene({
+             require(["esri/Map",
+      "esri/views/SceneView",
+      "esri/WebScene",
+      "esri/Basemap",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/LayerList",
+      "esri/request",  
+      "dojo/domReady!",
+      "esri/layers/GraphicsLayer",
+      "esri/Graphic",
+      "esri/widgets/Legend",
+      "esri/layers/GeoJSONLayer"
+    ], (
+      Map,
+      SceneView,
+      WebScene,
+      Basemap,
+      TileLayer,
+      FeatureLayer,
+      LayerList,
+      request,
+      GraphicsLayer,
+      Graphic,
+      Legend,
+      GeoJSONLayer
+    ) => {
+      const webscene = new WebScene({
         portalItem: {
           id: "c01fd40941a741afb160e65bd234cf03"
         }
       });
       
-      var view = new SceneView({
+      const viewLayer = new SceneView({
         container: "viewDiv",
         map: webscene
       });
-
       
+      
+      const graphicsLayer = new GraphicsLayer();
+      
+      
+      // London
+        const point = {
+          type: "point", // autocasts as new Point()
+          x: 5.528396157,
+          y: 51.61579053,
+          z: 10
+        };
 
-
-
-      const layer = new FeatureLayer({
-        source: data.map(
-            (d, i) => ({
-              geometry:
-                  {type: "point", longitude: d.LATITUDE, latitude: d.LONGITUDE},
-              attributes: {ObjectID: i, ...d}
-            })),
-        fields: [
-          {name: "ObjectID", alias: "ObjectID", type: "oid"},
-          {
-            name: "JOURNEY_LOCATION_ID",
-            alias: "JOURNEY_LOCATION_ID",
-            type: "integer"
-          },
-          {name: "LOCATION_GROUP", alias: "LOCATION_GROUP", type: "string"},
-          {name: "LATITUDE", alias: "Latitude", type: "double"},
-          {name: "LONGITUDE", alias: "Longitude", type: "double"},
-        ],
-        objectIDField: ["ObjectID"],
-        geometryType: "point",
-        renderer: {
-          type: "simple",
-          symbol: {
-            type: "text",
-            color: "Black",
-            text: "\ue61d",
-            font: {size: 30, family: "CalciteWebCoreIcons"}
+        const markerSymbol = {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          color: [226, 19, 40],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 0, 0],
+            width: 100
           }
-        },
-        popupTemplate: {
-          title: "{name}",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {fieldName: "LOCATION_GROUP", label: "LOCATION_GROUP"},
-                {fieldName: "lat", label: "Latitude", format: {places: 2}},
-                {fieldName: "lon", label: "Longitude", format: {places: 2}}
-              ]
-            },
-            new CustomContent({
-              outFields: ["*"],
-              creator: (event) => {
-                const a = document.createElement("a");
-                a.href = event.graphic.attributes.url;
-                a.target = "_blank";
-                a.innerText = event.graphic.attributes.url;
-                return a;
-              }
-            })
-          ],
-          outFields: ["*"]
-        }
+        };
+
+        const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: markerSymbol
+        });
+
+        graphicsLayer.add(pointGraphic);
+
+      webscene.add(graphicsLayer);
+      
+      
+      
+    
+      
+      const legend = new Legend({
+        view: viewLayer
       });
-
-
-      map.add(layer);
-
-      const view = new SceneView(
-          {container: "viewDiv", qualityProfile: "high", map: webscene});
-
-      view.when(() => {
-        view.popup.autoOpenEnabled = false;  // disable popups
-        // Create the Editor
-        const editor = new Editor({view: view});
-        // Add widget to top-right of the view
-        view.ui.add(editor, "top-right");
-      });
-     });
-  
-
-
+      viewLayer.ui.add(legend, "top-right");
 
   }  // end of constructor()
 
