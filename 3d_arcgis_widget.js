@@ -1,156 +1,179 @@
 (function() {
-let template = document.createElement("template");
-
-template.innerHTML = `
+    let template = document.createElement("template");
+   
+    template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.23/"></script>
-     <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
      <body>
-  <div id="viewDiv"></div>
-</body>
+    <div id="viewDiv"></div>
+  </body>
 </html>
     `;
+    
+    
 
-
-
-class Map extends HTMLElement {
-  constructor() {
-    super();
-
-    // this._shadowRoot = this.attachShadow({mode: "open"});
-    this.appendChild(template.content.cloneNode(true));
-    this._props = {};
-    let that = this;
-
-             require(["esri/Map",
-      "esri/views/SceneView",
-      "esri/WebScene",
-      "esri/Basemap",
-      "esri/layers/FeatureLayer",
-      "esri/widgets/LayerList",
-      "esri/request",  
-      "dojo/domReady!",
-      "esri/layers/GraphicsLayer",
-      "esri/Graphic",
-      "esri/widgets/Legend",
-      "esri/layers/GeoJSONLayer"
-    ], (
-      Map,
-      SceneView,
-      WebScene,
-      Basemap,
-      TileLayer,
-      FeatureLayer,
-      LayerList,
-      request,
-      GraphicsLayer,
-      Graphic,
-      Legend,
-      GeoJSONLayer
-    ) => {
-      const webscene = new WebScene({
-        portalItem: {
-          id: "c01fd40941a741afb160e65bd234cf03"
-        }
-      });
-      
-      const viewLayer = new SceneView({
-        container: "viewDiv",
-        map: webscene
-      });
-      
-      
-      const graphicsLayer = new GraphicsLayer();
-      
-      
-      // London
-        const point = {
-          type: "point", // autocasts as new Point()
-          x: 5.528396157,
-          y: 51.61579053,
-          z: 10
-        };
-
-        const markerSymbol = {
-          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-          color: [226, 19, 40],
-          outline: {
-            // autocasts as new SimpleLineSymbol()
-            color: [255, 0, 0],
-            width: 100
+    class Map extends HTMLElement {
+        constructor() {
+            super();
+            
+            //this._shadowRoot = this.attachShadow({mode: "open"});
+            this.appendChild(template.content.cloneNode(true));
+            this._props = {};
+            let that = this;
+            
+            require(["esri/layers/FeatureLayer", "esri/WebScene", "esri/views/SceneView", "esri/widgets/Editor"], (
+        FeatureLayer,
+        WebScene,
+        SceneView,
+        Editor
+      ) => {
+        // Create a map from the referenced webscene item id
+        const webscene = new WebScene({
+          portalItem: {
+            
+            id: "206a6a13162c4d9a95ea6a87abad2437"
           }
-        };
+        });
+                
 
-        const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: markerSymbol
+        // Create a layer with visualVariables to use interactive handles for size and rotation
+        const recreationLayer = new FeatureLayer({
+          title: "Recreation",
+          url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/EditableFeatures3D/FeatureServer/1",
+          elevationInfo: {
+            mode: "absolute-height"
+          },
+          renderer: {
+            type: "unique-value", // autocasts as new UniqueValueRenderer()
+            field: "TYPE",
+            visualVariables: [
+              {
+                // size can be modified with the interactive handle
+                type: "size",
+                field: "SIZE",
+                axis: "height",
+                valueUnit: "meters"
+              },
+              {
+                // rotation can be modified with the interactive handle
+                type: "rotation",
+                field: "ROTATION"
+              }
+            ],
+            uniqueValueInfos: [
+              {
+                value: "1",
+                label: "Slide",
+                symbol: {
+                  type: "point-3d", // autocasts as new PointSymbol3D()
+                  symbolLayers: [
+                    {
+                      type: "object",
+                      resource: {
+                        href: "https://static.arcgis.com/arcgis/styleItems/Recreation/gltf/resource/Slide.glb"
+                      }
+                    }
+                  ],
+                  styleOrigin: {
+                    styleName: "EsriRecreationStyle",
+                    name: "Slide"
+                  }
+                }
+              },
+              {
+                value: "2",
+                label: "Swing",
+                symbol: {
+                  type: "point-3d", // autocasts as new PointSymbol3D()
+                  symbolLayers: [
+                    {
+                      type: "object",
+                      resource: {
+                        href: "https://static.arcgis.com/arcgis/styleItems/Recreation/gltf/resource/Swing.glb"
+                      }
+                    }
+                  ],
+                  styleOrigin: {
+                    styleName: "EsriRecreationStyle",
+                    name: "Swing"
+                  }
+                }
+              }
+            ]
+          }
         });
 
-        graphicsLayer.add(pointGraphic);
+        webscene.add(recreationLayer);
+        
 
-      webscene.add(graphicsLayer);
-      
-      
-      
-    
-      
-      const legend = new Legend({
-        view: viewLayer
+        const view = new SceneView({
+          container: "viewDiv",
+          qualityProfile: "high",
+          map: webscene
+        });
+
+        view.when(() => {
+          view.popup.autoOpenEnabled = false; //disable popups
+          // Create the Editor
+          const editor = new Editor({
+            view: view
+          });
+          // Add widget to top-right of the view
+          view.ui.add(editor, "top-right");
+        });
       });
-      viewLayer.ui.add(legend, "top-right");
-      
+            
+            
+            
+        } // end of constructor()    
+
+        
+    } // end of class
+
+    let scriptSrc = "https://js.arcgis.com/4.18/"
+    let onScriptLoaded = function() {
+        customElements.define("com-sap-custom-geomap1", Map);
+    }
+
+    //SHARED FUNCTION: reuse between widgets
+    //function(src, callback) {
+    let customElementScripts = window.sessionStorage.getItem("customElementScripts") || [];
+    let scriptStatus = customElementScripts.find(function(element) {
+        return element.src == scriptSrc;
     });
 
-  }  // end of constructor()
+    if (scriptStatus) {
+        if(scriptStatus.status == "ready") {
+            onScriptLoaded();
+        } else {
+            scriptStatus.callbacks.push(onScriptLoaded);
+        }
+    } else {
+        let scriptObject = {
+            "src": scriptSrc,
+            "status": "loading",
+            "callbacks": [onScriptLoaded]
+        }
+        customElementScripts.push(scriptObject);
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = scriptSrc;
+        script.onload = function(){
+            scriptObject.status = "ready";
+            scriptObject.callbacks.forEach((callbackFn) => callbackFn.call());
+        };
+        document.head.appendChild(script);
+    }
 
-
-}  // end of class
-
-let scriptSrc = "https://js.arcgis.com/4.18/"
-let onScriptLoaded =
-    function() {
-  customElements.define("com-sap-custom-jumbo-beacon-location", Map);
-}
-
-// SHARED FUNCTION: reuse between widgets
-// function(src, callback) {
-let customElementScripts =
-    window.sessionStorage.getItem("customElementScripts") || [];
-let scriptStatus = customElementScripts.find(function(element) {
-  return element.src == scriptSrc;
-});
-
-if (scriptStatus) {
-  if (scriptStatus.status == "ready") {
-    onScriptLoaded();
-  } else {
-    scriptStatus.callbacks.push(onScriptLoaded);
-  }
-} else {
-  let scriptObject = {
-    "src": scriptSrc,
-    "status": "loading",
-    "callbacks": [onScriptLoaded]
-  }
-  customElementScripts.push(scriptObject);
-  var script = document.createElement("script");
-  script.type = "text/javascript";
-  script.src = scriptSrc;
-  script.onload = function() {
-    scriptObject.status = "ready";
-    scriptObject.callbacks.forEach((callbackFn) => callbackFn.call());
-  };
-  document.head.appendChild(script);
-}
-
-// END SHARED FUNCTION
-})();  // end of class
+//END SHARED FUNCTION
+})(); // end of class
