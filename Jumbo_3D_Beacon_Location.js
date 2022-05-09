@@ -112,11 +112,7 @@ for (var i = 0; i < table.rows.length; i++) {
             id: table.rows[i].cells[3],
             geometry: {
                 type: table.rows[i].cells[1],
-                coordinates: [
-                    [
-                        table.rows[i].cells[2];
-                    ]
-                ]
+                coordinates: table.rows[i].cells[2]
             },
             properties: {
                 beaconId: table.rows[i].cells[3];,
