@@ -101,7 +101,7 @@ class Map extends HTMLElement {
         }]
       };
                      
-                     
+      console.log("Here");
       console.log(this.$servicelevel);
       
       const geojsonlayer = new GeoJSONLayer({
