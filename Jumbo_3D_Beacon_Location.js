@@ -102,7 +102,7 @@ class Map extends HTMLElement {
       };
                      
       console.log("Here");
-const table = this.$servicelevel;
+const table = this.servicelevel;
 const geojson = {};
 for (var i = 0; i < table.rows.length; i++) {
     geojson += {
