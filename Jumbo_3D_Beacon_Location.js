@@ -100,6 +100,9 @@ class Map extends HTMLElement {
           ]
         }]
       };
+                     
+                     
+      console.log(this.$servicelevel);
       
       const geojsonlayer = new GeoJSONLayer({
     url: "https://arcgistest65.github.io/testData.geojson",
