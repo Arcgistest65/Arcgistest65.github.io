@@ -73,7 +73,7 @@ class Map extends HTMLElement {
       
       const template = {
         title: "Beacon Detail",
-        content: "Beacon ID:{name} \n Aisle assigned to:{Add details}"
+        content: "Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}"
       };
 
       const renderer = {
@@ -115,8 +115,8 @@ for (var i = 0; i < table.rows.length; i++) {
                 coordinates: table.rows[i].cells[2]
             },
             properties: {
-                beaconId: table.rows[i].cells[3];,
-                aisle_name: table.rows[i].cells[4];,
+                beaconId: table.rows[i].cells[3],
+                aisle_name: table.rows[i].cells[4],
             }
         }]
     };
