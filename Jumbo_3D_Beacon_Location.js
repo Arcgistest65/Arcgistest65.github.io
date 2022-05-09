@@ -102,10 +102,52 @@ class Map extends HTMLElement {
       };
                      
       console.log("Here");
-      console.log(this.$servicelevel);
+const tableData = this.$servicelevel;
+const geojson = {};
+for (var i = 0; i < table.rows.length; i++) {
+    geojson += {
+        type: "FeatureCollection",
+        features: [{
+            type: "Feature",
+            id: table.rows[i].cells[3],
+            geometry: {
+                type: table.rows[i].cells[1],
+                coordinates: [
+                    [
+                        table.rows[i].cells[2];
+                    ]
+                ]
+            },
+            properties: {
+                beaconId: table.rows[i].cells[3];,
+                aisle_name: table.rows[i].cells[4];,
+            }
+        }]
+    };
+}
+// create a new blob from geojson featurecollection
+const blob = new Blob([JSON.stringify(geojson)], {
+    type: "application/json"
+});
+// URL reference to the blob
+const url = URL.createObjectURL(blob);
+// create new geojson layer using the blob url
+        
+                     
+    
+     
+     
+     
+     
+  
+                     
+                     
+                     
+                     
       
       const geojsonlayer = new GeoJSONLayer({
-    url: "https://arcgistest65.github.io/testData.geojson",
+              url,
+   // url: "https://arcgistest65.github.io/testData.geojson",
     copyright: "Beacons",
         popupTemplate: template,
         renderer: renderer
