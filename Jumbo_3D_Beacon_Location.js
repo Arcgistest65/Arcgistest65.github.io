@@ -68,7 +68,7 @@ class Map extends HTMLElement {
                 };
                 processbeacons;
 
-                function processDefinitionQuery() {
+                function processbeacons() {
                     console.log(locationData);
                     
                     /*
