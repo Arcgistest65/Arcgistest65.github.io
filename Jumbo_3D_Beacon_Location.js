@@ -109,13 +109,15 @@ class Map extends HTMLElement {
                         popupTemplate: template,
                         renderer: renderer
                     });
+                    
+                     webscene.add(geojsonlayer);
+                const legend = new Legend({view: viewLayer});
+                viewLayer.ui.add(legend, 'top-right');
                     */
 
 
                 }  // end of function bracket
-                webscene.add(geojsonlayer);
-                const legend = new Legend({view: viewLayer});
-                viewLayer.ui.add(legend, 'top-right');
+               
             });
     }  // end of constructor()
     getSelection() {
