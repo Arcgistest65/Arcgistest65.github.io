@@ -102,8 +102,11 @@ class Map extends HTMLElement {
       };
                      
       console.log("Here");
-const table = this.servicelevel;
-const geojson = {};
+var table = this.servicelevel;
+                     console.log(table);
+                     console.log("here");
+var geojson = {};
+                     /*
 for (var i = 0; i < table.rows.length; i++) {
     geojson += {
         type: "FeatureCollection",
@@ -129,7 +132,7 @@ const blob = new Blob([JSON.stringify(geojson)], {
 const url = URL.createObjectURL(blob);
 // create new geojson layer using the blob url
         
-                     
+               */      
     
      
      
