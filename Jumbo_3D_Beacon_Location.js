@@ -1,5 +1,6 @@
 (function() {
 let template = document.createElement("template");
+        var locationData;//holds up each beacons data
 
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
@@ -23,146 +24,114 @@ template.innerHTML = `
 
 
 class Map extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
+        // this._shadowRoot = this.attachShadow({mode: "open"});
+        this.appendChild(template.content.cloneNode(true));
+        this._props = {};
+        let that = this;
+        require(
+            [
+                'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
+                'esri/Basemap', 'esri/layers/FeatureLayer',
+                'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
+                'esri/layers/GraphicsLayer', 'esri/Graphic',
+                'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
+            ],
+            (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
+             LayerList, request, GraphicsLayer, Graphic, Legend,
+             GeoJSONLayer) => {
+                const webscene = new WebScene(
+                    {portalItem: {id: 'c01fd40941a741afb160e65bd234cf03'}});
+                const viewLayer =
+                    new SceneView({container: 'viewDiv', map: webscene});
+                const graphicsLayer = new GraphicsLayer();
+                const template = {
+                    title: 'Beacon Detail',
+                    content:
+                        'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+                };
+                const renderer = {
+                    type: 'simple',
+                    field: 'name',
+                    symbol: {
+                        type: 'simple-marker',
+                        color: 'orange',
+                        outline: {color: 'white'}
+                    },
+                    visualVariables: [{
+                        type: 'size',
+                        field: 'name',
+                        stops:
+                            [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
+                    }]
+                };
+                processbeacons;
 
-    // this._shadowRoot = this.attachShadow({mode: "open"});
-    this.appendChild(template.content.cloneNode(true));
-    this._props = {};
-    let that = this;
+                function processDefinitionQuery() {
+                    console.log(locationData);
+                    
+                    /*
 
-             require(["esri/Map",
-      "esri/views/SceneView",
-      "esri/WebScene",
-      "esri/Basemap",
-      "esri/layers/FeatureLayer",
-      "esri/widgets/LayerList",
-      "esri/request",  
-      "dojo/domReady!",
-      "esri/layers/GraphicsLayer",
-      "esri/Graphic",
-      "esri/widgets/Legend",
-      "esri/layers/GeoJSONLayer"
-    ], (
-      Map,
-      SceneView,
-      WebScene,
-      Basemap,
-      TileLayer,
-      FeatureLayer,
-      LayerList,
-      request,
-      GraphicsLayer,
-      Graphic,
-      Legend,
-      GeoJSONLayer
-    ) => {
-      const webscene = new WebScene({
-        portalItem: {
-          id: "c01fd40941a741afb160e65bd234cf03"
+                    var geojson = {};
+
+                    for (var i = 0; i < table.rows.length; i++) {
+                        geojson += {
+                            type: 'FeatureCollection',
+                            features: [{
+                                type: 'Feature',
+                                id: table.rows[i].cells[3],
+                                geometry: {
+                                    type: table.rows[i].cells[1],
+                                    coordinates: table.rows[i].cells[2]
+                                },
+                                properties: {
+                                    beaconId: table.rows[i].cells[3],
+                                    aisle_name: table.rows[i].cells[4],
+                                }
+                            }]
+                        };
+                    }
+                    // create a new blob from geojson featurecollection
+                    const blob = new Blob(
+                        [JSON.stringify(geojson)], {type: 'application/json'});
+                    // URL reference to the blob
+                    const url = URL.createObjectURL(blob);
+                    // create new geojson layer using the blob url
+
+
+
+                    const geojsonlayer = new GeoJSONLayer({
+                        url,
+                        // url:
+                        // "https://arcgistest65.github.io/testData.geojson",
+                        copyright: 'Beacons',
+                        popupTemplate: template,
+                        renderer: renderer
+                    });
+                    */
+
+
+                }  // end of function bracket
+                webscene.add(geojsonlayer);
+                const legend = new Legend({view: viewLayer});
+                viewLayer.ui.add(legend, 'top-right');
+            });
+    }  // end of constructor()
+    getSelection() {
+        return this._currentSelection;
+    }
+    onCustomWidgetBeforeUpdate(changedProperties) {
+        this._props = {...this._props, ...changedProperties};
+        // console.log(["Service Level",changedProperties["servicelevel"]]);
+    }
+    onCustomWidgetAfterUpdate(changedProperties) {
+        if ('servicelevel' in changedProperties) {
+            this.$servicelevel = changedProperties['servicelevel'];
         }
-      });
-      
-      const viewLayer = new SceneView({
-        container: "viewDiv",
-        map: webscene
-      });
-      
-      
-      const graphicsLayer = new GraphicsLayer();
-      
-      const template = {
-        title: "Beacon Detail",
-        content: "Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}"
-      };
-
-      const renderer = {
-        type: "simple",
-        field: "name",
-        symbol: {
-          type: "simple-marker",
-          color: "orange",
-          outline: {
-            color: "white"
-          }
-        },
-        visualVariables: [{
-          type: "size",
-          field: "name",
-          stops: [{
-              value: 4,
-              size: "8px"
-            },
-            {
-              value: 8,
-              size: "40px"
-            }
-          ]
-        }]
-      };
-                     
-      console.log("Here");
-                     console.log(this.$servicelevel);
-                     console.log("here");
-var geojson = {};
-                     /*
-for (var i = 0; i < table.rows.length; i++) {
-    geojson += {
-        type: "FeatureCollection",
-        features: [{
-            type: "Feature",
-            id: table.rows[i].cells[3],
-            geometry: {
-                type: table.rows[i].cells[1],
-                coordinates: table.rows[i].cells[2]
-            },
-            properties: {
-                beaconId: table.rows[i].cells[3],
-                aisle_name: table.rows[i].cells[4],
-            }
-        }]
-    };
-}
-// create a new blob from geojson featurecollection
-const blob = new Blob([JSON.stringify(geojson)], {
-    type: "application/json"
-});
-// URL reference to the blob
-const url = URL.createObjectURL(blob);
-// create new geojson layer using the blob url
-        
-               */      
-    
-     
-     
-     
-     
-  
-                     
-                     
-                     
-                     
-      
-      const geojsonlayer = new GeoJSONLayer({
-              url,
-   // url: "https://arcgistest65.github.io/testData.geojson",
-    copyright: "Beacons",
-        popupTemplate: template,
-        renderer: renderer
-  });
-      webscene.add(geojsonlayer);
-      const legend = new Legend({
-        view: viewLayer
-      });
-      viewLayer.ui.add(legend, "top-right");
-      
-    });
-
-  }  // end of constructor()
-
-
+        locationData = this.$servicelevel;  // place passed in value into global
+    }
 }  // end of class
-
 let scriptSrc = "https://js.arcgis.com/4.18/"
 let onScriptLoaded =
     function() {
