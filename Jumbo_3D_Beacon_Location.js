@@ -68,20 +68,16 @@ class Map extends HTMLElement {
                 };
                 processbeacons();
                     
-                var list = function(family) {
-  for (var prop in family) {
-    var elList = document.getElementById('aaron-family').innerHTML = prop;
-  }
-}
+
 
                 function processbeacons() {
                     let myTemp = JSON.stringify(locationData);
-                        console.log("Here");
+                        locationData=this.getValue("servicelevel")
+                        console.log(myTemp);
+                        console.log("locationData");
                         console.log(locationData[1]);
                         
                      
-
-list(locationData);
                     
                     /*
 
@@ -135,6 +131,10 @@ list(locationData);
     getSelection() {
         return this._currentSelection;
     }
+    connectedCallback(){
+       
+    }
+
     onCustomWidgetBeforeUpdate(changedProperties) {
         this._props = {...this._props, ...changedProperties};
         this.$servicelevel = changedProperties["servicelevel"];
