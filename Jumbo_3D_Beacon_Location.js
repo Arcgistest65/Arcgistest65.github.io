@@ -69,7 +69,9 @@ class Map extends HTMLElement {
                 processbeacons;
 
                 function processbeacons() {
-                    locationData.display();
+                    let myTemp = JSON.stringify(locationData);
+                        console.log("Here");
+                        console.log(myTemp);
                     
                     /*
 
