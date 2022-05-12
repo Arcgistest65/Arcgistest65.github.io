@@ -67,11 +67,21 @@ class Map extends HTMLElement {
                     }]
                 };
                 processbeacons();
+                    
+                var list = function(family) {
+  for (var prop in family) {
+    var elList = document.getElementById('aaron-family').innerHTML = prop;
+  }
+}
 
                 function processbeacons() {
                     let myTemp = JSON.stringify(locationData);
                         console.log("Here");
                         console.log(locationData[1]);
+                        
+                     
+
+list(locationData);
                     
                     /*
 
@@ -127,6 +137,8 @@ class Map extends HTMLElement {
     }
     onCustomWidgetBeforeUpdate(changedProperties) {
         this._props = {...this._props, ...changedProperties};
+        this.$servicelevel = changedProperties["servicelevel"];
+        locationData = this.$servicelevel;
         // console.log(["Service Level",changedProperties["servicelevel"]]);
     }
     onCustomWidgetAfterUpdate(changedProperties) {
