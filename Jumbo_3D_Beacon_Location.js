@@ -69,7 +69,7 @@ class Map extends HTMLElement {
                 processbeacons;
 
                 function processbeacons() {
-                    console.log(locationData);
+                    locationData.display();
                     
                     /*
 
