@@ -66,7 +66,7 @@ class Map extends HTMLElement {
                             [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
                     }]
                 };
-                processbeacons;
+                processbeacons();
 
                 function processbeacons() {
                     let myTemp = JSON.stringify(locationData);
