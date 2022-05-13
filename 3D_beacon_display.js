@@ -46,10 +46,11 @@ class Map extends HTMLElement {
                 const viewLayer =
                     new SceneView({container: 'viewDiv', map: webscene});
                 const graphicsLayer = new GraphicsLayer();
+                    
                 const template = {
                     title: 'Beacon Detail',
                     content:
-                        'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+                        'Beacon ID:{name} Aisle assigned to:{Add details}'
                 };
                 const renderer = {
                     type: 'simple',
@@ -66,9 +67,8 @@ class Map extends HTMLElement {
                             [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
                     }]
                 };
-                
-
-                    const geojsonlayer = new GeoJSONLayer({
+                    
+                const geojsonlayer = new GeoJSONLayer({
                         url:"https://arcgistest65.github.io/testData.geojson",
                         copyright: 'Beacons',
                         popupTemplate: template,
@@ -78,6 +78,11 @@ class Map extends HTMLElement {
                 webscene.add(geojsonlayer);
                 const legend = new Legend({view: viewLayer});
                 viewLayer.ui.add(legend, 'top-right');
+                           
+                
+                
+
+                
                     
 
 
