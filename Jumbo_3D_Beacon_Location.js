@@ -141,17 +141,16 @@ class Map extends HTMLElement {
        
     }
 
-    onCustomWidgetBeforeUpdate(changedProperties) {
-        this._props = {...this._props, ...changedProperties};
+    onCustomWidgetBeforeUpdate(oChangedProperties) {
         this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
-        console.log(["Service Level",changedProperties["servicelevel"]]);
+        console.log(["Service Level",oChangedProperties["servicelevel"]]);
     }
     onCustomWidgetAfterUpdate(changedProperties) {
         if ('servicelevel' in changedProperties) {
-            this.$servicelevel = ocChangedProperties['servicelevel'];
+            this.$servicelevel = changedProperties['servicelevel'];
         }
-        locationData = this.$servicelevel;  // place passed in value into global
+        //locationData = this.$servicelevel;  // place passed in value into global
     }
 }  // end of class
 let scriptSrc = "https://js.arcgis.com/4.18/"
