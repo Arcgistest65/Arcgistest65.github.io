@@ -74,7 +74,7 @@ class Map extends HTMLElement {
 
 
                 function processbeacons() {
-                        console.log(this._props);
+                        console.log("process beacon function");
                         console.log(locationData);
                         /*
                     let myTemp = JSON.stringify(locationData);
@@ -144,13 +144,14 @@ class Map extends HTMLElement {
     onCustomWidgetBeforeUpdate(oChangedProperties) {
         this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
-        console.log(["Service Level",oChangedProperties["servicelevel"]]);
+        console.log("In before function");
+        console.log(locationData);
     }
     onCustomWidgetAfterUpdate(changedProperties) {
         if ('servicelevel' in changedProperties) {
             this.$servicelevel = changedProperties['servicelevel'];
         }
-        //locationData = this.$servicelevel;  // place passed in value into global
+        locationData = this.$servicelevel;  // place passed in value into global
     }
 }  // end of class
 let scriptSrc = "https://js.arcgis.com/4.18/"
