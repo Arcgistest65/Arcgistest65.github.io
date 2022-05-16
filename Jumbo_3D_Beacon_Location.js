@@ -137,10 +137,6 @@ class Map extends HTMLElement {
     getSelection() {
         return this._currentSelection;
     }
-    connectedCallback(){
-       
-    }
-
     onCustomWidgetBeforeUpdate(oChangedProperties) {
         this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
