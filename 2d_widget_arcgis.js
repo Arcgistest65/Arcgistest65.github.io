@@ -21,6 +21,7 @@
     padding: 10px;
     width: 275px;
   }
+  //
   #sliderValue{
     font-weight: bolder;
   }
