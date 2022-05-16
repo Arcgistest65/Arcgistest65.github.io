@@ -74,6 +74,8 @@ class Map extends HTMLElement {
 
 
                 function processbeacons() {
+                        console.log(locationData);
+                        /*
                     let myTemp = JSON.stringify(locationData);
                         locationData=this.getValue("servicelevel")
                         console.log(myTemp);
@@ -82,7 +84,7 @@ class Map extends HTMLElement {
                         
                      
                     
-                    /*
+                    
 
                     var geojson = {};
 
