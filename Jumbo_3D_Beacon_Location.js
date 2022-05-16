@@ -75,6 +75,7 @@ class Map extends HTMLElement {
 
                 function processbeacons() {
                         console.log(this._props);
+                        console.log(locationData);
                         /*
                     let myTemp = JSON.stringify(locationData);
                         locationData=this.getValue("servicelevel")
@@ -142,13 +143,13 @@ class Map extends HTMLElement {
 
     onCustomWidgetBeforeUpdate(changedProperties) {
         this._props = {...this._props, ...changedProperties};
-        this.$servicelevel = changedProperties["servicelevel"];
+        this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
-        // console.log(["Service Level",changedProperties["servicelevel"]]);
+        console.log(["Service Level",changedProperties["servicelevel"]]);
     }
     onCustomWidgetAfterUpdate(changedProperties) {
         if ('servicelevel' in changedProperties) {
-            this.$servicelevel = changedProperties['servicelevel'];
+            this.$servicelevel = ocChangedProperties['servicelevel'];
         }
         locationData = this.$servicelevel;  // place passed in value into global
     }
