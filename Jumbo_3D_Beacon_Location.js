@@ -30,7 +30,6 @@ class Map extends HTMLElement {
         this.appendChild(template.content.cloneNode(true));
         this._props = {};
         let that = this;
-        locationData = this.$servicelevel; 
             
             
         require(
