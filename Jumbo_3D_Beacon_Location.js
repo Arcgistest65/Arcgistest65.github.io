@@ -70,10 +70,11 @@ class Map extends HTMLElement {
                 };
                 processbeacons();
                     
+                    
 
 
                 function processbeacons() {
-                        console.log(locationData);
+                        console.log(this._props);
                         /*
                     let myTemp = JSON.stringify(locationData);
                         locationData=this.getValue("servicelevel")
