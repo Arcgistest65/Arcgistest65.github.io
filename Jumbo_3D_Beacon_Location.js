@@ -20,180 +20,169 @@ template.innerHTML = `
 </body>
 </html>
     `;
-        
+//Convert JSON to GEOJSON 
+	
+function j2gConvert(jsonObject) {
+	
+	var newlistgeojson = {};
+	newlistgeojson['type'] = 'FeatureCollection';
+	newlistgeojson['features'] = [];
+ 
+for (i=0; i < jsonObject.length; i++) {
+  var newFeature = {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": jsonObject[i]['Geometry_coordinates']
+    },
+    "properties": {
+      "name": jsonObject[i]['Properties_name_1'],
+      "Add details": jsonObject[i]['Properties_Add_details']
+    }
+  }
+  newlistgeojson['features'].push(newFeature);
+}
+
+	return newlistgeojson;
+	
+}
+// End Convert JSON to GEOJSON        
 
 
 
 class Map extends HTMLElement {
-    constructor() {
-        super();
-        // this._shadowRoot = this.attachShadow({mode: "open"});
-        this.appendChild(template.content.cloneNode(true));
-        this._props = {};
-        let that = this;
-            
-            
-        require(
-            [
-                'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
-                'esri/Basemap', 'esri/layers/FeatureLayer',
-                'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
-                'esri/layers/GraphicsLayer', 'esri/Graphic',
-                'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
-            ],
-            (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
-             LayerList, request, GraphicsLayer, Graphic, Legend,
-             GeoJSONLayer) => {
-                const webscene = new WebScene(
-                    {portalItem: {id: 'c01fd40941a741afb160e65bd234cf03'}});
-                const viewLayer =
-                    new SceneView({container: 'viewDiv', map: webscene});
-                const graphicsLayer = new GraphicsLayer();
-                const template = {
-                    title: 'Beacon Detail',
-                    content:
-                        'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
-                };
-                const renderer = {
-                    type: 'simple',
-                    field: 'name',
-                    symbol: {
-                        type: 'simple-marker',
-                        color: 'orange',
-                        outline: {color: 'white'}
-                    },
-                    visualVariables: [{
-                        type: 'size',
-                        field: 'name',
-                        stops:
-                            [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
-                    }]
-                };
-                
-                    
-                    
+  constructor() {
+    super();
+    // this._shadowRoot = this.attachShadow({mode: "open"});
+    this.appendChild(template.content.cloneNode(true));
+    this._props = {};
+    let that = this;
 
 
-                
-               
-            });
-    }  // end of constructor()
-    getSelection() {
-        return this._currentSelection;
+    require(
+      [
+        'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
+        'esri/Basemap', 'esri/layers/FeatureLayer',
+        'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
+        'esri/layers/GraphicsLayer', 'esri/Graphic',
+        'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
+      ],
+      (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
+        LayerList, request, GraphicsLayer, Graphic, Legend,
+        GeoJSONLayer) => {
+        const webscene = new WebScene({
+          portalItem: {
+            id: 'c01fd40941a741afb160e65bd234cf03'
+          }
+        });
+        const viewLayer =
+          new SceneView({
+            container: 'viewDiv',
+            map: webscene
+          });
+        const graphicsLayer = new GraphicsLayer();
+        const template = {
+          title: 'Beacon Detail',
+          content: 'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+        };
+        const renderer = {
+          type: 'simple',
+          field: 'name',
+          symbol: {
+            type: 'simple-marker',
+            color: 'orange',
+            outline: {
+              color: 'white'
+            }
+          },
+          visualVariables: [{
+            type: 'size',
+            field: 'name',
+            stops: [{
+              value: 4,
+              size: '8px'
+            }, {
+              value: 8,
+              size: '40px'
+            }]
+          }]
+        };
+
+      });
+  } // end of constructor()
+  getSelection() {
+    return this._currentSelection;
+  }
+  onCustomWidgetBeforeUpdate(oChangedProperties) {
+    this.$servicelevel = oChangedProperties["servicelevel"];
+    locationData = this.$servicelevel;
+    if (locationData) {
+      processbeacons();
     }
-    onCustomWidgetBeforeUpdate(oChangedProperties) {
-        this.$servicelevel = oChangedProperties["servicelevel"];
-        locationData = this.$servicelevel;
-       if (locationData)  {
-           processbeacons();
-       }   
-       
-        
+
+
+  }
+  onCustomWidgetAfterUpdate(changedProperties) {
+    if ('servicelevel' in changedProperties) {
+      this.$servicelevel = changedProperties['servicelevel'];
     }
-    onCustomWidgetAfterUpdate(changedProperties) {
-        if ('servicelevel' in changedProperties) {
-            this.$servicelevel = changedProperties['servicelevel'];
-        }
-        locationData = this.$servicelevel;  // place passed in value into global
-    }
-        
-    function processbeacons() {
-
-
-  let myTemp = JSON.stringify(locationData);
-
-  const geoJSONPointArr = [myTemp].map(row => {
-    return {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": row.Geometry_coordinates
-      },
-      "properties": {
-        "name":row.Properties_name_1 ,
-        "Add details" : row.Properties_Add_details
-      }
-    }
-  });
-
-  console.log(geoJSONPointArr);
-
-  // to GeoJSON.FeatureCollection
-  const pointArrFeatureCollection = {
-    "type": "FeatureCollection",
-    "features": geoJSONPointArr
+    locationData = this.$servicelevel; // place passed in value into global
   }
 
-  console.log(pointArrFeatureCollection);
-        
-  // create a new blob from geojson featurecollection
-const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
-  type: "application/json"
-});
-
-// URL reference to the blob
-const url = URL.createObjectURL(blob);
-const geojsonlayer = new GeoJSONLayer({GeoJSONLayer({
-                        url,
-                        copyright: 'Beacons',
-                        popupTemplate: template,
-                        renderer: renderer
-                    });
-                    
-                     webscene.add(geojsonlayer);
-                const legend = new Legend({view: viewLayer});
-                viewLayer.ui.add(legend, 'top-right');
+  processbeacons() {
 
 
-  /*
-                    
+    let myTemp = JSON.stringify(locationData);
+    // to GeoJSON.FeatureCollection
+    const pointArrFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": j2gConvert(myTemp)
+    }
 
-                    var geojson = {};
+    console.log(pointArrFeatureCollection);
 
-                    for (var i = 0; i < table.rows.length; i++) {
-                        geojson += {
-                            type: 'FeatureCollection',
-                            features: [{
-                                type: 'Feature',
-                                id: table.rows[i].cells[3],
-                                geometry: {
-                                    type: table.rows[i].cells[1],
-                                    coordinates: table.rows[i].cells[2]
-                                },
-                                properties: {
-                                    beaconId: table.rows[i].cells[3],
-                                    aisle_name: table.rows[i].cells[4],
-                                }
-                            }]
-                        };
-                    }
-                    // create a new blob from geojson featurecollection
-                    const blob = new Blob(
-                        [JSON.stringify(geojson)], {type: 'application/json'});
-                    // URL reference to the blob
-                    const url = URL.createObjectURL(blob);
-                    // create new geojson layer using the blob url
+    // create a new blob from geojson featurecollection
+    const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+      type: "application/json"
+    });
 
+    // URL reference to the blob
+    const url = URL.createObjectURL(blob);
+    const geojsonlayer = new GeoJSONLayer({
+        GeoJSONLayer({
+          url,
+          copyright: 'Beacons',
+          popupTemplate: template,
+          renderer: renderer
+        });
 
-
-                    const geojsonlayer = new GeoJSONLayer({
-                        url,
-                        // url:
-                        // "https://arcgistest65.github.io/testData.geojson",
-                        copyright: 'Beacons',
-                        popupTemplate: template,
-                        renderer: renderer
-                    });
-                    
-                     webscene.add(geojsonlayer);
-                const legend = new Legend({view: viewLayer});
-                viewLayer.ui.add(legend, 'top-right');
-                    */
+        webscene.add(geojsonlayer);
+        const legend = new Legend({
+          view: viewLayer
+        });
+        viewLayer.ui.add(legend, 'top-right');
 
 
-} // end of function bracket
+        /*
+                          
+                          const geojsonlayer = new GeoJSONLayer({
+                              url,
+                              // url:
+                              // "https://arcgistest65.github.io/testData.geojson",
+                              copyright: 'Beacons',
+                              popupTemplate: template,
+                              renderer: renderer
+                          });
+                          
+                           webscene.add(geojsonlayer);
+                      const legend = new Legend({view: viewLayer});
+                      viewLayer.ui.add(legend, 'top-right');
+                          */
 
-}  // end of class
+
+      } // end of function bracket
+
+    } // end of class
 let scriptSrc = "https://js.arcgis.com/4.18/"
 let onScriptLoaded =
     function() {
