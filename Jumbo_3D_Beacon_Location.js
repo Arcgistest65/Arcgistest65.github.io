@@ -21,7 +21,83 @@ template.innerHTML = `
 </html>
     `;
         
-function processbeacons() {
+
+
+
+class Map extends HTMLElement {
+    constructor() {
+        super();
+        // this._shadowRoot = this.attachShadow({mode: "open"});
+        this.appendChild(template.content.cloneNode(true));
+        this._props = {};
+        let that = this;
+            
+            
+        require(
+            [
+                'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
+                'esri/Basemap', 'esri/layers/FeatureLayer',
+                'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
+                'esri/layers/GraphicsLayer', 'esri/Graphic',
+                'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
+            ],
+            (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
+             LayerList, request, GraphicsLayer, Graphic, Legend,
+             GeoJSONLayer) => {
+                const webscene = new WebScene(
+                    {portalItem: {id: 'c01fd40941a741afb160e65bd234cf03'}});
+                const viewLayer =
+                    new SceneView({container: 'viewDiv', map: webscene});
+                const graphicsLayer = new GraphicsLayer();
+                const template = {
+                    title: 'Beacon Detail',
+                    content:
+                        'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+                };
+                const renderer = {
+                    type: 'simple',
+                    field: 'name',
+                    symbol: {
+                        type: 'simple-marker',
+                        color: 'orange',
+                        outline: {color: 'white'}
+                    },
+                    visualVariables: [{
+                        type: 'size',
+                        field: 'name',
+                        stops:
+                            [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
+                    }]
+                };
+                
+                    
+                    
+
+
+                
+               
+            });
+    }  // end of constructor()
+    getSelection() {
+        return this._currentSelection;
+    }
+    onCustomWidgetBeforeUpdate(oChangedProperties) {
+        this.$servicelevel = oChangedProperties["servicelevel"];
+        locationData = this.$servicelevel;
+       if (locationData)  {
+           processbeacons();
+       }   
+       
+        
+    }
+    onCustomWidgetAfterUpdate(changedProperties) {
+        if ('servicelevel' in changedProperties) {
+            this.$servicelevel = changedProperties['servicelevel'];
+        }
+        locationData = this.$servicelevel;  // place passed in value into global
+    }
+        
+    function processbeacons() {
 
 
   let myTemp = JSON.stringify(locationData);
@@ -57,7 +133,7 @@ const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
 
 // URL reference to the blob
 const url = URL.createObjectURL(blob);
-GeoJSONLayer({
+const geojsonlayer = new GeoJSONLayer({GeoJSONLayer({
                         url,
                         copyright: 'Beacons',
                         popupTemplate: template,
@@ -117,80 +193,6 @@ GeoJSONLayer({
 
 } // end of function bracket
 
-
-
-class Map extends HTMLElement {
-    constructor() {
-        super();
-        // this._shadowRoot = this.attachShadow({mode: "open"});
-        this.appendChild(template.content.cloneNode(true));
-        this._props = {};
-        let that = this;
-            
-            
-        require(
-            [
-                'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
-                'esri/Basemap', 'esri/layers/FeatureLayer',
-                'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
-                'esri/layers/GraphicsLayer', 'esri/Graphic',
-                'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
-            ],
-            (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
-             LayerList, request, GraphicsLayer, Graphic, Legend,
-             GeoJSONLayer) => {
-                const webscene = new WebScene(
-                    {portalItem: {id: 'c01fd40941a741afb160e65bd234cf03'}});
-                const viewLayer =
-                    new SceneView({container: 'viewDiv', map: webscene});
-                const graphicsLayer = new GraphicsLayer();
-                const template = {
-                    title: 'Beacon Detail',
-                    content:
-                        'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
-                };
-                const renderer = {
-                    type: 'simple',
-                    field: 'name',
-                    symbol: {
-                        type: 'simple-marker',
-                        color: 'orange',
-                        outline: {color: 'white'}
-                    },
-                    visualVariables: [{
-                        type: 'size',
-                        field: 'name',
-                        stops:
-                            [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
-                    }]
-                };
-                
-                  const geojsonlayer = new GeoJSONLayer({});   
-                    
-
-
-                
-               
-            });
-    }  // end of constructor()
-    getSelection() {
-        return this._currentSelection;
-    }
-    onCustomWidgetBeforeUpdate(oChangedProperties) {
-        this.$servicelevel = oChangedProperties["servicelevel"];
-        locationData = this.$servicelevel;
-       if (locationData)  {
-           processbeacons();
-       }   
-       
-        
-    }
-    onCustomWidgetAfterUpdate(changedProperties) {
-        if ('servicelevel' in changedProperties) {
-            this.$servicelevel = changedProperties['servicelevel'];
-        }
-        locationData = this.$servicelevel;  // place passed in value into global
-    }
 }  // end of class
 let scriptSrc = "https://js.arcgis.com/4.18/"
 let onScriptLoaded =
