@@ -26,7 +26,7 @@ template.innerHTML = `
                         console.log(locationData);
                        
                     let myTemp = JSON.stringify(locationData);
-                        locationData=this.getValue("servicelevel")
+                        
                         console.log(myTemp);
                         console.log("locationData");
                         console.log(locationData[1]);
@@ -142,7 +142,7 @@ class Map extends HTMLElement {
     onCustomWidgetBeforeUpdate(oChangedProperties) {
         this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
-       if (locationData!=="undefined")  {
+       if (locationData)  {
            processbeacons();
        }   
        
