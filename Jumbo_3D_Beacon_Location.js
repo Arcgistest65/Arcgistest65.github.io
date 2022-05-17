@@ -2,6 +2,9 @@
 let template = document.createElement("template");
         var locationData;//holds up each beacons data
 	import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
+	import WebScene from "@arcgis/core/WebScene";
+	
+import Legend from "@arcgis/core/widgets/Legend";
 
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
