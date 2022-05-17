@@ -26,7 +26,7 @@ function processbeacons() {
 
   let myTemp = JSON.stringify(locationData);
 
-  const geoJSONPointArr = myTemp.map(row => {
+  const geoJSONPointArr = [myTemp].map(row => {
     return {
       "type": "Feature",
       "geometry": {
