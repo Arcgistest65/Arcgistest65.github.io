@@ -149,9 +149,7 @@ class Map extends HTMLElement {
     // URL reference to the blob
     const url = URL.createObjectURL(blob);
     const geojsonlayer = new GeoJSONLayer({
-        GeoJSONLayer({
           url,
-         // copyright: 'Beacons',
           popupTemplate: template,
           renderer: renderer
         });
