@@ -31,11 +31,11 @@ function processbeacons() {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": Geometry_coordinates
+        "coordinates": row.Geometry_coordinates
       },
       "properties": {
-        "name":Properties_name_1 ,
-        "Add details" : Properties_Add_details
+        "name":row.Properties_name_1 ,
+        "Add details" : row.Properties_Add_details
       }
     }
   });
