@@ -57,8 +57,7 @@ const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
 
 // URL reference to the blob
 const url = URL.createObjectURL(blob);
-        
- const geojsonlayer = new GeoJSONLayer({
+GeoJSONLayer({
                         url,
                         copyright: 'Beacons',
                         popupTemplate: template,
@@ -166,7 +165,7 @@ class Map extends HTMLElement {
                     }]
                 };
                 
-                    
+                  const geojsonlayer = new GeoJSONLayer({});   
                     
 
 
