@@ -34,8 +34,8 @@ function processbeacons() {
         "coordinates": Geometry_coordinates
       },
       "properties": {
-        "name" = Properties_name_1 ,
-        "Add details" = Properties_Add_details
+        "name":Properties_name_1 ,
+        "Add details" : Properties_Add_details
       }
     }
   });
