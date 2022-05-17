@@ -117,7 +117,7 @@ class Map extends HTMLElement {
     this.$servicelevel = oChangedProperties["servicelevel"];
     locationData = this.$servicelevel;
     if (locationData) {
-      processbeacons();
+      Map.processbeacons();
     }
 
 
