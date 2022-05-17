@@ -26,7 +26,7 @@ function processbeacons() {
 
   let myTemp = JSON.stringify(locationData);
 
-  const geoJSONPointArr = jsonData.map(row => {
+  const geoJSONPointArr = locationData.map(row => {
     return {
       "type": "Feature",
       "geometry": {
@@ -49,6 +49,25 @@ function processbeacons() {
   }
 
   console.log(pointArrFeatureCollection);
+        
+  // create a new blob from geojson featurecollection
+const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+  type: "application/json"
+});
+
+// URL reference to the blob
+const url = URL.createObjectURL(blob);
+        
+ const geojsonlayer = new GeoJSONLayer({
+                        url,
+                        copyright: 'Beacons',
+                        popupTemplate: template,
+                        renderer: renderer
+                    });
+                    
+                     webscene.add(geojsonlayer);
+                const legend = new Legend({view: viewLayer});
+                viewLayer.ui.add(legend, 'top-right');
 
 
   /*
