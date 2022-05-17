@@ -151,7 +151,7 @@ class Map extends HTMLElement {
     const geojsonlayer = new GeoJSONLayer({
         GeoJSONLayer({
           url,
-          copyright: 'Beacons',
+         // copyright: 'Beacons',
           popupTemplate: template,
           renderer: renderer
         });
