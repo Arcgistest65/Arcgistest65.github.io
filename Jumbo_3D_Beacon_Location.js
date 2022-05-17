@@ -21,18 +21,36 @@ template.innerHTML = `
 </html>
     `;
         
-        function processbeacons() {
-                        console.log("process beacon function");
-                        console.log(locationData);
-                       
-                    let myTemp = JSON.stringify(locationData);
-                        
-                        console.log(myTemp);
-                        console.log("locationData");
-                        console.log(locationData[1]);
-                        
-                     
-                    /*
+function processbeacons() {
+
+
+  let myTemp = JSON.stringify(locationData);
+
+  const geoJSONPointArr = jsonData.map(row => {
+    return {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": Geometry_coordinates
+      },
+      "properties": {
+        "name" = Properties_name_1 "Add details" = Properties_Add_details
+      }
+    }
+  });
+
+  console.log(geoJSONPointArr);
+
+  // to GeoJSON.FeatureCollection
+  const pointArrFeatureCollection = {
+    "type": "FeatureCollection",
+    "features": geoJSONPointArr
+  }
+
+  console.log(pointArrFeatureCollection);
+
+
+  /*
                     
 
                     var geojson = {};
@@ -78,7 +96,7 @@ template.innerHTML = `
                     */
 
 
-                }  // end of function bracket
+} // end of function bracket
 
 
 
