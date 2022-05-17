@@ -20,6 +20,61 @@ template.innerHTML = `
 </body>
 </html>
     `;
+	
+function processbeacons() {
+
+
+    let myTemp = JSON.stringify(locationData);
+    // to GeoJSON.FeatureCollection
+    const pointArrFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": j2gConvert(myTemp)
+    }
+
+    console.log(pointArrFeatureCollection);
+
+    // create a new blob from geojson featurecollection
+    const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+      type: "application/json"
+    });
+
+    // URL reference to the blob
+    const url = URL.createObjectURL(blob);
+    geojsonlayer=({
+          url,
+          popupTemplate: template,
+          renderer: renderer
+        });
+
+        webscene.add(geojsonlayer);
+        const legend = new Legend({
+          view: viewLayer
+        });
+        viewLayer.ui.add(legend, 'top-right');
+
+
+        /*
+                          
+                          const geojsonlayer = new GeoJSONLayer({
+                              url,
+                              // url:
+                              // "https://arcgistest65.github.io/testData.geojson",
+                              copyright: 'Beacons',
+                              popupTemplate: template,
+                              renderer: renderer
+                          });
+                          
+                           webscene.add(geojsonlayer);
+                      const legend = new Legend({view: viewLayer});
+                      viewLayer.ui.add(legend, 'top-right');
+                          */
+
+
+      } // end of function bracket
+	
+	
+	
+	
 //Convert JSON to GEOJSON 
 	
 function j2gConvert(jsonObject) {
@@ -107,6 +162,8 @@ class Map extends HTMLElement {
             }]
           }]
         };
+	      
+	const geojsonlayer = new GeoJSONLayer({});
 
       });
   } // end of constructor()
@@ -117,7 +174,7 @@ class Map extends HTMLElement {
     this.$servicelevel = oChangedProperties["servicelevel"];
     locationData = this.$servicelevel;
     if (locationData) {
-      Map.processbeacons();
+      processbeacons();
     }
 
 
@@ -129,57 +186,7 @@ class Map extends HTMLElement {
     locationData = this.$servicelevel; // place passed in value into global
   }
 
-  processbeacons() {
-
-
-    let myTemp = JSON.stringify(locationData);
-    // to GeoJSON.FeatureCollection
-    const pointArrFeatureCollection = {
-      "type": "FeatureCollection",
-      "features": j2gConvert(myTemp)
-    }
-
-    console.log(pointArrFeatureCollection);
-
-    // create a new blob from geojson featurecollection
-    const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
-      type: "application/json"
-    });
-
-    // URL reference to the blob
-    const url = URL.createObjectURL(blob);
-    const geojsonlayer = new GeoJSONLayer({
-          url,
-          popupTemplate: template,
-          renderer: renderer
-        });
-
-        webscene.add(geojsonlayer);
-        const legend = new Legend({
-          view: viewLayer
-        });
-        viewLayer.ui.add(legend, 'top-right');
-
-
-        /*
-                          
-                          const geojsonlayer = new GeoJSONLayer({
-                              url,
-                              // url:
-                              // "https://arcgistest65.github.io/testData.geojson",
-                              copyright: 'Beacons',
-                              popupTemplate: template,
-                              renderer: renderer
-                          });
-                          
-                           webscene.add(geojsonlayer);
-                      const legend = new Legend({view: viewLayer});
-                      viewLayer.ui.add(legend, 'top-right');
-                          */
-
-
-      } // end of function bracket
-
+  
     } // end of class
 let scriptSrc = "https://js.arcgis.com/4.18/"
 let onScriptLoaded =
