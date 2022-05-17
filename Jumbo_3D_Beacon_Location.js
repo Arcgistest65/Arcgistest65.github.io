@@ -20,6 +20,65 @@ template.innerHTML = `
 </body>
 </html>
     `;
+        
+        function processbeacons() {
+                        console.log("process beacon function");
+                        console.log(locationData);
+                       
+                    let myTemp = JSON.stringify(locationData);
+                        locationData=this.getValue("servicelevel")
+                        console.log(myTemp);
+                        console.log("locationData");
+                        console.log(locationData[1]);
+                        
+                     
+                    /*
+                    
+
+                    var geojson = {};
+
+                    for (var i = 0; i < table.rows.length; i++) {
+                        geojson += {
+                            type: 'FeatureCollection',
+                            features: [{
+                                type: 'Feature',
+                                id: table.rows[i].cells[3],
+                                geometry: {
+                                    type: table.rows[i].cells[1],
+                                    coordinates: table.rows[i].cells[2]
+                                },
+                                properties: {
+                                    beaconId: table.rows[i].cells[3],
+                                    aisle_name: table.rows[i].cells[4],
+                                }
+                            }]
+                        };
+                    }
+                    // create a new blob from geojson featurecollection
+                    const blob = new Blob(
+                        [JSON.stringify(geojson)], {type: 'application/json'});
+                    // URL reference to the blob
+                    const url = URL.createObjectURL(blob);
+                    // create new geojson layer using the blob url
+
+
+
+                    const geojsonlayer = new GeoJSONLayer({
+                        url,
+                        // url:
+                        // "https://arcgistest65.github.io/testData.geojson",
+                        copyright: 'Beacons',
+                        popupTemplate: template,
+                        renderer: renderer
+                    });
+                    
+                     webscene.add(geojsonlayer);
+                const legend = new Legend({view: viewLayer});
+                viewLayer.ui.add(legend, 'top-right');
+                    */
+
+
+                }  // end of function bracket
 
 
 
@@ -68,69 +127,12 @@ class Map extends HTMLElement {
                             [{value: 4, size: '8px'}, {value: 8, size: '40px'}]
                     }]
                 };
-                processbeacons();
+                
                     
                     
 
 
-                function processbeacons() {
-                        console.log("process beacon function");
-                        console.log(locationData);
-                        /*
-                    let myTemp = JSON.stringify(locationData);
-                        locationData=this.getValue("servicelevel")
-                        console.log(myTemp);
-                        console.log("locationData");
-                        console.log(locationData[1]);
-                        
-                     
-                    
-                    
-
-                    var geojson = {};
-
-                    for (var i = 0; i < table.rows.length; i++) {
-                        geojson += {
-                            type: 'FeatureCollection',
-                            features: [{
-                                type: 'Feature',
-                                id: table.rows[i].cells[3],
-                                geometry: {
-                                    type: table.rows[i].cells[1],
-                                    coordinates: table.rows[i].cells[2]
-                                },
-                                properties: {
-                                    beaconId: table.rows[i].cells[3],
-                                    aisle_name: table.rows[i].cells[4],
-                                }
-                            }]
-                        };
-                    }
-                    // create a new blob from geojson featurecollection
-                    const blob = new Blob(
-                        [JSON.stringify(geojson)], {type: 'application/json'});
-                    // URL reference to the blob
-                    const url = URL.createObjectURL(blob);
-                    // create new geojson layer using the blob url
-
-
-
-                    const geojsonlayer = new GeoJSONLayer({
-                        url,
-                        // url:
-                        // "https://arcgistest65.github.io/testData.geojson",
-                        copyright: 'Beacons',
-                        popupTemplate: template,
-                        renderer: renderer
-                    });
-                    
-                     webscene.add(geojsonlayer);
-                const legend = new Legend({view: viewLayer});
-                viewLayer.ui.add(legend, 'top-right');
-                    */
-
-
-                }  // end of function bracket
+                
                
             });
     }  // end of constructor()
@@ -140,8 +142,11 @@ class Map extends HTMLElement {
     onCustomWidgetBeforeUpdate(oChangedProperties) {
         this.$servicelevel = oChangedProperties["servicelevel"];
         locationData = this.$servicelevel;
-        console.log("In before function");
-        console.log(locationData);
+       if (locationData!="undefined")  {
+           processbeacons();
+       }   
+       
+        
     }
     onCustomWidgetAfterUpdate(changedProperties) {
         if ('servicelevel' in changedProperties) {
