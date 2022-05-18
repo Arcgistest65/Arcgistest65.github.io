@@ -151,7 +151,7 @@ function j2gConvert(jsonObject) {
                 beaconId: row.Properties_name_1,
                 aisle_name: row.Properties_Add_details,
             },
-	    id:row.Properties_name_1
+	    id:parseFloat(row.Properties_name_1)
 	    ,
         };
     });
