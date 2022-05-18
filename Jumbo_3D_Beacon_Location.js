@@ -130,26 +130,23 @@ function processbeacons() {
 	
 function j2gConvert(jsonObject) {
 	
-	var newlistgeojson = {};
-	newlistgeojson['type'] = 'FeatureCollection';
-	newlistgeojson['features'] = [];
- 
-for (i=0; i < jsonObject.length; i++) {
-  var newFeature = {
+// to GeoJSON.Point array
+const geoJSONPointArr = jsonObject.map(row => {
+  return {
     "type": "Feature",
     "geometry": {
       "type": "Point",
-      "coordinates": jsonObject[i]['Geometry_coordinates']
+      "coordinates": row.Geometry_coordinates
     },
     "properties": {
-      "name": jsonObject[i]['Properties_name_1'],
-      "Add details": jsonObject[i]['Properties_Add_details']
+    "name":row.Properties_name_1,
+	    "Add details":row.Properties_Add_details
     }
   }
-  newlistgeojson['features'].push(newFeature);
-}
+});
 
-	return newlistgeojson;
+console.log(geoJSONPointArr);
+	return geoJSONPointArr;
 	
 }
 // End Convert JSON to GEOJSON        
