@@ -1,10 +1,6 @@
 (function() {
 let template = document.createElement("template");
-        var locationData;//holds up each beacons data
-	import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
-	import WebScene from "@arcgis/core/WebScene";
-	
-import Legend from "@arcgis/core/widgets/Legend";
+var locationData;//holds up each beacons data
 
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
@@ -26,6 +22,18 @@ template.innerHTML = `
     `;
 	
 function processbeacons() {
+	
+	 require(
+      [
+        'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
+        'esri/Basemap', 'esri/layers/FeatureLayer',
+        'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
+        'esri/layers/GraphicsLayer', 'esri/Graphic',
+        'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
+      ],
+      (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
+        LayerList, request, GraphicsLayer, Graphic, Legend,
+        GeoJSONLayer) => {
 
 
     let myTemp = JSON.stringify(locationData);
@@ -73,7 +81,7 @@ function processbeacons() {
                       viewLayer.ui.add(legend, 'top-right');
                           */
 
-
+      });
       } // end of function bracket
 	
 	
