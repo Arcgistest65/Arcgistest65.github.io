@@ -34,6 +34,32 @@ function processbeacons() {
       (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
         LayerList, request, GraphicsLayer, Graphic, Legend,
         GeoJSONLayer) => {
+	      const template = {
+          title: 'Beacon Detail',
+          content: 'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+        };
+        const renderer = {
+          type: 'simple',
+          field: 'name',
+          symbol: {
+            type: 'simple-marker',
+            color: 'orange',
+            outline: {
+              color: 'white'
+            }
+          },
+          visualVariables: [{
+            type: 'size',
+            field: 'name',
+            stops: [{
+              value: 4,
+              size: '8px'
+            }, {
+              value: 8,
+              size: '40px'
+            }]
+          }]
+        };
 
 
     let myTemp = JSON.stringify(locationData);
@@ -148,32 +174,7 @@ class Map extends HTMLElement {
             map: webscene
           });
         const graphicsLayer = new GraphicsLayer();
-        const template = {
-          title: 'Beacon Detail',
-          content: 'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
-        };
-        const renderer = {
-          type: 'simple',
-          field: 'name',
-          symbol: {
-            type: 'simple-marker',
-            color: 'orange',
-            outline: {
-              color: 'white'
-            }
-          },
-          visualVariables: [{
-            type: 'size',
-            field: 'name',
-            stops: [{
-              value: 4,
-              size: '8px'
-            }, {
-              value: 8,
-              size: '40px'
-            }]
-          }]
-        };
+        
 	      
 	const geojsonlayer = new GeoJSONLayer({});
 
