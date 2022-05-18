@@ -74,14 +74,14 @@ function processbeacons() {
         const pointArrFeatureCollection = {
             type: "FeatureCollection",
             features: j2gConvert(locationData),
-	    bbox:" [
+	    bbox: [
         -179.9997,
         -61.6995,
         -3.5699999332428,
         179.9142,
         82.9995,
         629.17
-    ]",
+    ],
         };
 	    console.log(pointArrFeatureCollection);
 
