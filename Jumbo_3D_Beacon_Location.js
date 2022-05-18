@@ -134,7 +134,7 @@ function j2gConvert(jsonObject) {
             type: "Feature",
             geometry: {
                 type: "Point",
-                coordinates: row.Geometry_coordinates,
+                coordinates: row.Geometry_coordinates
             },
             properties: {
                 beaconId: row.Properties_name_1,
