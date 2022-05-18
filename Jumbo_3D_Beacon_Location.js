@@ -91,11 +91,11 @@ function processbeacons() {
         const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
             type: "application/json",
         });
-	    console.log(blob);
+	    
 
         // URL reference to the blob
         const url = URL.createObjectURL(blob);
-	    console.log(url);
+	  
         const geojsonlayer = new GeoJSONLayer({
             url,
             popupTemplate: template,
@@ -143,7 +143,6 @@ var LatLng = stringCoor.replace("[", "").replace("]", "").split(",")
 var Lat = parseFloat(LatLng[0]);
 var Lng = parseFloat(LatLng[1]);
 var x=parseFloat(LatLng[2]);
-console.log([Lat, Lng,x]);
 return [Lat, Lng,x]
 }
 
