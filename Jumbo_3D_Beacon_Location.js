@@ -75,16 +75,19 @@ function processbeacons() {
             type: "FeatureCollection",
             features: j2gConvert(locationData),
         };
+	    console.log(pointArrFeatureCollection);
 
        
 
         // create a new blob from geojson featurecollection
-        const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+        const blob = new Blob([pointArrFeatureCollection], {
             type: "application/json",
         });
+	    console.log(blob);
 
         // URL reference to the blob
         const url = URL.createObjectURL(blob);
+	    console.log(url);
         const geojsonlayer = new GeoJSONLayer({
             url,
             popupTemplate: template,
