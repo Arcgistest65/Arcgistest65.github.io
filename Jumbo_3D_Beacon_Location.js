@@ -138,6 +138,15 @@ function processbeacons() {
 
 //Convert JSON to GEOJSON
 
+function removeString(stringCoor){
+var LatLng = stringCoor.replace("(", "").replace(")", "").split(", ")
+var Lat = parseFloat(LatLng[0]);
+var Lng = parseFloat(LatLng[1]);
+var x=parseFloat(LatLng[2]);
+console.log([Lat, Lng,x]);
+return [Lat, Lng,x]
+}
+
 function j2gConvert(jsonObject) {
     // to GeoJSON.Point array
     const geoJSONPointArr = jsonObject.map((row) => {
@@ -145,7 +154,7 @@ function j2gConvert(jsonObject) {
             type: "Feature",
             geometry: {
                 type: "Point",
-                coordinates: row.Geometry_coordinates
+                coordinates: removeString(row.Geometry_coordinates)
             },
             properties: {
                 beaconId: row.Properties_name_1,
