@@ -88,7 +88,7 @@ function processbeacons() {
        
 
         // create a new blob from geojson featurecollection
-        const blob = new Blob([pointArrFeatureCollection], {
+        const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
             type: "application/json",
         });
 	    console.log(blob);
