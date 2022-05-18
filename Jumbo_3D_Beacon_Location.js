@@ -69,14 +69,14 @@ function processbeacons() {
             ],
         };
 
-        let myTemp = JSON.stringify(locationData);
-        // to GeoJSON.FeatureCollection
+       
+ 
         const pointArrFeatureCollection = {
             type: "FeatureCollection",
             features: j2gConvert(locationData),
         };
 
-        console.log(pointArrFeatureCollection);
+       
 
         // create a new blob from geojson featurecollection
         const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
@@ -143,7 +143,6 @@ function j2gConvert(jsonObject) {
         };
     });
 
-    console.log(geoJSONPointArr);
     return geoJSONPointArr;
 }
 // End Convert JSON to GEOJSON
