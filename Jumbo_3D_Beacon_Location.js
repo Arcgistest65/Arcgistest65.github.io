@@ -74,6 +74,14 @@ function processbeacons() {
         const pointArrFeatureCollection = {
             type: "FeatureCollection",
             features: j2gConvert(locationData),
+	    bbox:" [
+        -179.9997,
+        -61.6995,
+        -3.5699999332428,
+        179.9142,
+        82.9995,
+        629.17
+    ]",
         };
 	    console.log(pointArrFeatureCollection);
 
@@ -144,7 +152,7 @@ function j2gConvert(jsonObject) {
                 aisle_name: row.Properties_Add_details,
             },
 	    id:row.Properties_name_1
-	    },
+	    ,
         };
     });
 
