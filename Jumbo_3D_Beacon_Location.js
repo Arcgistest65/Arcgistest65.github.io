@@ -23,86 +23,89 @@ template.innerHTML = `
     `;
 	
 function processbeacons() {
-	
-	 require(
-      [
-        'esri/Map', 'esri/views/SceneView', 'esri/WebScene',
-        'esri/Basemap', 'esri/layers/FeatureLayer',
-        'esri/widgets/LayerList', 'esri/request', 'dojo/domReady!',
-        'esri/layers/GraphicsLayer', 'esri/Graphic',
-        'esri/widgets/Legend', 'esri/layers/GeoJSONLayer'
-      ],
-      (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
-        LayerList, request, GraphicsLayer, Graphic, Legend,
-        GeoJSONLayer) => {
-	      const template = {
-          title: 'Beacon Detail',
-          content: 'Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}'
+    require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/WebScene",
+        "esri/Basemap",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/LayerList",
+        "esri/request",
+        "dojo/domReady!",
+        "esri/layers/GraphicsLayer",
+        "esri/Graphic",
+        "esri/widgets/Legend",
+        "esri/layers/GeoJSONLayer",
+    ], (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
+        const template = {
+            title: "Beacon Detail",
+            content: "Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}",
         };
         const renderer = {
-          type: 'simple',
-          field: 'name',
-          symbol: {
-            type: 'simple-marker',
-            color: 'orange',
-            outline: {
-              color: 'white'
-            }
-          },
-          visualVariables: [{
-            type: 'size',
-            field: 'name',
-            stops: [{
-              value: 4,
-              size: '8px'
-            }, {
-              value: 8,
-              size: '40px'
-            }]
-          }]
+            type: "simple",
+            field: "name",
+            symbol: {
+                type: "simple-marker",
+                color: "orange",
+                outline: {
+                    color: "white",
+                },
+            },
+            visualVariables: [
+                {
+                    type: "size",
+                    field: "name",
+                    stops: [
+                        {
+                            value: 4,
+                            size: "8px",
+                        },
+                        {
+                            value: 8,
+                            size: "40px",
+                        },
+                    ],
+                },
+            ],
         };
 
+        let myTemp = JSON.stringify(locationData);
+        // to GeoJSON.FeatureCollection
+        const pointArrFeatureCollection = {
+            type: "FeatureCollection",
+            features: j2gConvert(myTemp),
+        };
 
-    let myTemp = JSON.stringify(locationData);
-    // to GeoJSON.FeatureCollection
-    const pointArrFeatureCollection = {
-      "type": "FeatureCollection",
-      "features": j2gConvert(myTemp)
-    }
+        console.log(pointArrFeatureCollection);
 
-    console.log(pointArrFeatureCollection);
-
-    // create a new blob from geojson featurecollection
-    const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
-      type: "application/json"
-    });
-
-    // URL reference to the blob
-    const url = URL.createObjectURL(blob);
-    const geojsonlayer = new GeoJSONLayer({
-          url,
-          popupTemplate: template,
-          renderer: renderer
+        // create a new blob from geojson featurecollection
+        const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+            type: "application/json",
         });
-	      
-	      
-	      const webscene = new WebScene({
-          portalItem: {
-            id: 'c01fd40941a741afb160e65bd234cf03'
-          }
+
+        // URL reference to the blob
+        const url = URL.createObjectURL(blob);
+        const geojsonlayer = new GeoJSONLayer({
+            url,
+            popupTemplate: template,
+            renderer: renderer,
         });
-        const viewLayer =
-          new SceneView({
-            container: 'viewDiv',
-            map: webscene
-          });
+
+        const webscene = new WebScene({
+            portalItem: {
+                id: "c01fd40941a741afb160e65bd234cf03",
+            },
+        });
+        const viewLayer = new SceneView({
+            container: "viewDiv",
+            map: webscene,
+        });
 
         webscene.add(geojsonlayer);
         const legend = new Legend({
-          view: viewLayer
+            view: viewLayer,
         });
-        viewLayer.ui.add(legend, 'top-right');
-
+        viewLayer.ui.add(legend, "top-right");
 
         /*
                           
@@ -119,37 +122,31 @@ function processbeacons() {
                       const legend = new Legend({view: viewLayer});
                       viewLayer.ui.add(legend, 'top-right');
                           */
+    });
+} // end of function bracket
 
-      });
-      } // end of function bracket
-	
-	
-	
-	
-//Convert JSON to GEOJSON 
-	
+//Convert JSON to GEOJSON
+
 function j2gConvert(jsonObject) {
-	
-// to GeoJSON.Point array
-const geoJSONPointArr = jsonObject.map(row => {
-  return {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": row.Geometry_coordinates
-    },
-    "properties": {
-    "name":row.Properties_name_1,
-	    "Add details":row.Properties_Add_details
-    }
-  }
-});
+    // to GeoJSON.Point array
+    const geoJSONPointArr = jsonObject.map((row) => {
+        return {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: row.Geometry_coordinates,
+            },
+            properties: {
+                beaconId: row.Properties_name_1,
+                aisle_name: row.Properties_Add_details,
+            },
+        };
+    });
 
-console.log(geoJSONPointArr);
-	return geoJSONPointArr;
-	
+    console.log(geoJSONPointArr);
+    return geoJSONPointArr;
 }
-// End Convert JSON to GEOJSON        
+// End Convert JSON to GEOJSON
 
 
 
