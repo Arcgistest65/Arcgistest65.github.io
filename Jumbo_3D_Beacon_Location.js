@@ -1,8 +1,6 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
-	const webscene={};
-	const viewLayer={};
 	
 
 template.innerHTML = `
@@ -81,11 +79,23 @@ function processbeacons() {
 
     // URL reference to the blob
     const url = URL.createObjectURL(blob);
-    geojsonlayer=({
+    const geojsonlayer = new GeoJSONLayer({
           url,
           popupTemplate: template,
           renderer: renderer
         });
+	      
+	      
+	      const webscene = new WebScene({
+          portalItem: {
+            id: 'c01fd40941a741afb160e65bd234cf03'
+          }
+        });
+        const viewLayer =
+          new SceneView({
+            container: 'viewDiv',
+            map: webscene
+          });
 
         webscene.add(geojsonlayer);
         const legend = new Legend({
@@ -166,6 +176,7 @@ class Map extends HTMLElement {
       (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
         LayerList, request, GraphicsLayer, Graphic, Legend,
         GeoJSONLayer) => {
+	      /*
         const webscene = new WebScene({
           portalItem: {
             id: 'c01fd40941a741afb160e65bd234cf03'
@@ -179,7 +190,7 @@ class Map extends HTMLElement {
         const graphicsLayer = new GraphicsLayer();
         
 	      
-	const geojsonlayer = new GeoJSONLayer({});
+	const geojsonlayer = new GeoJSONLayer({});*/
 
       });
   } // end of constructor()
