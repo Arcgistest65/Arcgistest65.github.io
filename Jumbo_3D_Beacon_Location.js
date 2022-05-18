@@ -1,8 +1,8 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
-	const webscene;
-	const viewLayer
+	const webscene={};
+	const viewLayer={};
 	
 
 template.innerHTML = `
