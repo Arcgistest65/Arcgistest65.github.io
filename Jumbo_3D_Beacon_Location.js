@@ -1,6 +1,9 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
+	const webscene;
+	const viewLayer
+	
 
 template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
