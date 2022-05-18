@@ -73,7 +73,7 @@ function processbeacons() {
         // to GeoJSON.FeatureCollection
         const pointArrFeatureCollection = {
             type: "FeatureCollection",
-            features: j2gConvert(myTemp),
+            features: j2gConvert(locationData),
         };
 
         console.log(pointArrFeatureCollection);
