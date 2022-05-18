@@ -138,7 +138,8 @@ function processbeacons() {
 
 //Convert JSON to GEOJSON
 
-function removeString(stringCoor){
+function removeString(stringCoord){
+stringCoor=", "+stringCoord;
 var LatLng = stringCoor.replace("(", "").replace(")", "").split(", ")
 var Lat = parseFloat(LatLng[0]);
 var Lng = parseFloat(LatLng[1]);
