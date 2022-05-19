@@ -1,6 +1,9 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
+const WebScene;
+const geojsonlayer;
+const viewLayer;
 var iniValue=0;
 	
 
@@ -124,9 +127,7 @@ class Map extends HTMLElement {
             container: "viewDiv",
             map: webscene,
         });
-	      
-	     
-	     
+
 	     //display a key on the screen containing all shapes in map
         const legend = new Legend({
             view: viewLayer,
@@ -134,89 +135,8 @@ class Map extends HTMLElement {
         
         //add the key to the main screen
         viewLayer.ui.add(legend, "top-right");
-	      
-	      
-	      
-	      
-
       });
   } // end of constructor()
-  
- //function inside class to create geojson beacons
- processbeacons() {
-    require([
-        "esri/Map",
-        "esri/views/SceneView",
-        "esri/WebScene",
-        "esri/Basemap",
-        "esri/layers/FeatureLayer",
-        "esri/widgets/LayerList",
-        "esri/request",
-        "dojo/domReady!",
-        "esri/layers/GraphicsLayer",
-        "esri/Graphic",
-        "esri/widgets/Legend",
-        "esri/layers/GeoJSONLayer",
-    ], (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
-        
-        const pointArrFeatureCollection = {
-            type: "FeatureCollection",
-            features: j2gConvert(locationData),
-	    bbox: [
-        -179.9997,
-        -61.6995,
-        -3.5699999332428,
-        179.9142,
-        82.9995,
-        629.17
-    ],
-        };
-	    
-        // create a new blob from geojson featurecollection
-        const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
-            type: "application/json",
-        });
-	    
-
-        // URL reference to the blob
-        const url = URL.createObjectURL(blob);
-	    console.log("url:"+url);
-        
-        if(iniValue !== 0 ){
-            
-      //remove previous geojsonlayer from webscene
-        destroy(geojsonlayer);
-	  //create a layer to hold the beacon coordinates
-        const geojsonlayer = new GeoJSONLayer({
-            url,
-            popupTemplate: template,
-            renderer: renderer,
-        });
- 
-
-        //add the beacons to the webscene
-        webscene.add(geojsonlayer);
-    
-        }else{
-            //create a layer to hold the beacon coordinates
-        const geojsonlayer = new GeoJSONLayer({
-            url,
-            popupTemplate: template,
-            renderer: renderer,
-        });
- 
-
-        //add the beacons to the webscene
-        webscene.add(geojsonlayer);
-            
-        }//end of if
-    });
-} // end of function bracket
-  
-  
-  
-  
-  
   
   getSelection() {
     return this._currentSelection;
