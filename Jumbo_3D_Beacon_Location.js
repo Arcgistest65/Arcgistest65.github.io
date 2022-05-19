@@ -180,6 +180,7 @@ class Map extends HTMLElement {
 
         // URL reference to the blob
         const url = URL.createObjectURL(blob);
+	    console.log("url:"+url);
         
         if(iniValue !== 0 ){
             
