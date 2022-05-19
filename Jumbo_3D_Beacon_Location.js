@@ -88,9 +88,9 @@ function processbeacons() {
        
 
         // create a new blob from geojson featurecollection
-        const blob = new Blob([pointArrFeatureCollection], {
+        const blob = new Blob([(pointArrFeatureCollection)], {
             type: "application/json",
-        });   
+        });  
 	    
 	    /*// create a new blob from geojson featurecollection
         const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
@@ -98,7 +98,7 @@ function processbeacons() {
         }); */
 
         // URL reference to the blob
-        const url = URL.createObjectURL(pointArrFeatureCollection);
+        const url = URL.createObjectURL(blob);
 	  
         const geojsonlayer = new GeoJSONLayer({
             url,
