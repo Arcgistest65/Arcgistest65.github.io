@@ -4,7 +4,7 @@ var locationData;//holds up each beacons data
 var WebScene;
 var geojsonlayer;
 var viewLayer;
-var url=
+var url;
 var blob;
 var templates;
 var renderer;
