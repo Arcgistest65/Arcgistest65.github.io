@@ -1,7 +1,7 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
-var WebScene;
+var webscene;
 var geojsonlayer;
 var viewLayer;
 var url;
@@ -105,7 +105,7 @@ function j2gConvert(jsonObject) {
         if(iniValue !== 0 ){
             
       //remove previous geojsonlayer from webscene
-        destroy(geojsonlayer);
+        
 	  //create a layer to hold the beacon coordinates
         geojsonlayer = new GeoJSONLayer({
             url,
