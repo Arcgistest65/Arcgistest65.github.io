@@ -4,6 +4,11 @@ var locationData;//holds up each beacons data
 const WebScene;
 const geojsonlayer;
 const viewLayer;
+const url;
+const blob;
+const template;
+const renderer;
+const legend;
 var iniValue=0;
 	
 
@@ -37,7 +42,6 @@ var x=parseFloat(LatLng[2]);
 return [Lat, Lng,x]
 }
 
-
 //function to convert array to geojson format
 function j2gConvert(jsonObject) {
     const geoJSONPointArr = jsonObject.map((row) => {
@@ -59,6 +63,75 @@ function j2gConvert(jsonObject) {
     return geoJSONPointArr;
 }
 
+ //function inside class to create geojson beacons
+ function processbeacons() {
+    require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/WebScene",
+        "esri/Basemap",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/LayerList",
+        "esri/request",
+        "dojo/domReady!",
+        "esri/layers/GraphicsLayer",
+        "esri/Graphic",
+        "esri/widgets/Legend",
+        "esri/layers/GeoJSONLayer",
+    ], (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
+        
+        const pointArrFeatureCollection = {
+            type: "FeatureCollection",
+            features: j2gConvert(locationData),
+	    bbox: [
+        -179.9997,
+        -61.6995,
+        -3.5699999332428,
+        179.9142,
+        82.9995,
+        629.17
+    ],
+        };
+	    
+        // create a new blob from geojson featurecollection
+        blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
+            type: "application/json",
+        });
+	    
+
+        // URL reference to the blob
+        url = URL.createObjectURL(blob);
+        
+        if(iniValue !== 0 ){
+            
+      //remove previous geojsonlayer from webscene
+        destroy(geojsonlayer);
+	  //create a layer to hold the beacon coordinates
+        geojsonlayer = new GeoJSONLayer({
+            url,
+            popupTemplate: template,
+            renderer: renderer,
+        });
+ 
+
+        //add the beacons to the webscene
+        webscene.add(geojsonlayer);
+    
+        }else{
+            //create a layer to hold the beacon coordinates
+        geojsonlayer = new GeoJSONLayer({
+            url,
+            popupTemplate: template,
+            renderer: renderer,
+        });
+ 
+
+        //add the beacons to the webscene
+        webscene.add(geojsonlayer);
+            
+        }//end of if
+    });
+} // end of function bracket
 
 class Map extends HTMLElement {
   constructor() {
@@ -80,13 +153,13 @@ class Map extends HTMLElement {
         LayerList, request, GraphicsLayer, Graphic, Legend,
         GeoJSONLayer) => {
             // template to display additional details for the beacon when selected
-            const template = {
+            template = {
             title: "Beacon Detail",
             content: "Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}",
         };
         
         //information on how to display the beacons(point format)
-        const renderer = {
+        renderer = {
             type: "simple",
             field: "name",
             symbol: {
@@ -115,7 +188,7 @@ class Map extends HTMLElement {
         };
     
         //create the main map of type webscene
-        const webscene = new WebScene({
+        webscene = new WebScene({
             portalItem: {
                 id: "c01fd40941a741afb160e65bd234cf03",
             },
@@ -123,21 +196,25 @@ class Map extends HTMLElement {
         
         
         //add the WebScene to the SceneView layer(Layer displayed)
-        const viewLayer = new SceneView({
+        viewLayer = new SceneView({
             container: "viewDiv",
             map: webscene,
         });
-
+	      
+	     
+	     
 	     //display a key on the screen containing all shapes in map
-        const legend = new Legend({
+        legend = new Legend({
             view: viewLayer,
         });
         
         //add the key to the main screen
         viewLayer.ui.add(legend, "top-right");
+      
+
       });
   } // end of constructor()
-  
+
   getSelection() {
     return this._currentSelection;
   }
@@ -151,8 +228,7 @@ class Map extends HTMLElement {
       iniValue=1;
       Map.processbeacons();
     }
-
-
+    
   }
   
   ////function executed on variable updates
