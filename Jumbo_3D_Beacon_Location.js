@@ -6,7 +6,7 @@ const geojsonlayer={};
 const viewLayer={};
 const url={};
 const blob={};
-const template={};
+const templates={};
 const renderer={};
 const legend={};
 var iniValue=0;
@@ -109,7 +109,7 @@ function j2gConvert(jsonObject) {
 	  //create a layer to hold the beacon coordinates
         geojsonlayer = new GeoJSONLayer({
             url,
-            popupTemplate: template,
+            popupTemplate: templates,
             renderer: renderer,
         });
  
@@ -121,7 +121,7 @@ function j2gConvert(jsonObject) {
             //create a layer to hold the beacon coordinates
         geojsonlayer = new GeoJSONLayer({
             url,
-            popupTemplate: template,
+            popupTemplate: templates,
             renderer: renderer,
         });
  
@@ -153,7 +153,7 @@ class Map extends HTMLElement {
         LayerList, request, GraphicsLayer, Graphic, Legend,
         GeoJSONLayer) => {
             // template to display additional details for the beacon when selected
-            template = {
+            templates = {
             title: "Beacon Detail",
             content: "Beacon ID:{beaconId} \n Aisle assigned to:{aisle_name}",
         };
