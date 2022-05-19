@@ -228,7 +228,7 @@ class Map extends HTMLElement {
     locationData = this.$servicelevel;
     if (locationData) {
       iniValue=1;
-      processbeacons();
+      Map.processbeacons();
     }
 
 
