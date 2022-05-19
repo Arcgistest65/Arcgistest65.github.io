@@ -86,12 +86,16 @@ function processbeacons() {
 	    console.log(pointArrFeatureCollection);
 
        
-/*
+
         // create a new blob from geojson featurecollection
+        const blob = new Blob([pointArrFeatureCollection], {
+            type: "application/json",
+        });   
+	    
+	    /*// create a new blob from geojson featurecollection
         const blob = new Blob([JSON.stringify(pointArrFeatureCollection)], {
             type: "application/json",
-        });
-*/	    
+        }); */
 
         // URL reference to the blob
         const url = URL.createObjectURL(pointArrFeatureCollection);
