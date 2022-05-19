@@ -1,14 +1,14 @@
 (function() {
 let template = document.createElement("template");
 var locationData;//holds up each beacons data
-const WebScene;
-const geojsonlayer;
-const viewLayer;
-const url;
-const blob;
-const template;
-const renderer;
-const legend;
+const WebScene={};
+const geojsonlayer={};
+const viewLayer={};
+const url={};
+const blob={};
+const template={};
+const renderer={};
+const legend={};
 var iniValue=0;
 	
 
