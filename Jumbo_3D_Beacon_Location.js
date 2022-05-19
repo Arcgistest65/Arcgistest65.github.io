@@ -39,7 +39,7 @@ var LatLng = stringCoor.replace("[", "").replace("]", "").split(",")
 var Lat = parseFloat(LatLng[0]);
 var Lng = parseFloat(LatLng[1]);
 var x=parseFloat(LatLng[2]);
-return [Lat, Lng,x]
+return [Lng, Lat,x]
 }
 
 //function to convert array to geojson format
