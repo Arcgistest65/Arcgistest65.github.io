@@ -179,11 +179,11 @@ class Map extends HTMLElement {
                     stops: [
                         {
                             value: 4,
-                            size: "8px",
+                            size: "16px",
                         },
                         {
                             value: 8,
-                            size: "40px",
+                            size: "80px",
                         },
                     ],
                 },
@@ -239,9 +239,7 @@ class Map extends HTMLElement {
     if ('servicelevel' in oChangedProperties) {
       this.$servicelevel = oChangedProperties['servicelevel'];
 	    locationData = this.$servicelevel; // place passed in value into global
-	  console.log("test");
     if (locationData && iniValue==1) {
-      console.log("test1");
       webscene.remove(geojsonlayer);
       processbeacons();
     }
