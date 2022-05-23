@@ -179,11 +179,11 @@ class Map extends HTMLElement {
                     stops: [
                         {
                             value: 4,
-                            size: "8px",
+                            size: "80px",
                         },
                         {
                             value: 8,
-                            size: "40px",
+                            size: "400px",
                         },
                     ],
                 },
@@ -241,6 +241,7 @@ class Map extends HTMLElement {
     }
     locationData = this.$servicelevel; // place passed in value into global
     if (locationData && iniValue==1) {
+      webscene.remove(geojsonlayer);
       processbeacons();
     }
   }
