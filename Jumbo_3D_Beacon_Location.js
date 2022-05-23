@@ -235,9 +235,9 @@ class Map extends HTMLElement {
   }
   
   ////function executed on variable updates
-  onCustomWidgetAfterUpdate(changedProperties) {
-    if ('servicelevel' in changedProperties) {
-      this.$servicelevel = changedProperties['servicelevel'];
+  onCustomWidgetAfterUpdate(oChangedProperties) {
+    if ('servicelevel' in oChangedProperties) {
+      this.$servicelevel = oChangedProperties['servicelevel'];
 	    locationData = this.$servicelevel; // place passed in value into global
 	  console.log("test");
     if (locationData && iniValue==1) {
