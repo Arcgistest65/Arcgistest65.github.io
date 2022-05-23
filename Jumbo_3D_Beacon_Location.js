@@ -240,7 +240,9 @@ class Map extends HTMLElement {
       this.$servicelevel = changedProperties['servicelevel'];
     }
     locationData = this.$servicelevel; // place passed in value into global
+	  console.log("test");
     if (locationData && iniValue==1) {
+      console.log("test1");
       webscene.remove(geojsonlayer);
       processbeacons();
     }
