@@ -10,6 +10,8 @@ var templates;
 var renderer;
 var legend;
 var iniValue=0;
+var pointArrFeatureCollection;
+	
 	
 
 template.innerHTML = `
@@ -79,8 +81,9 @@ function j2gConvert(jsonObject) {
         "esri/widgets/Legend",
         "esri/layers/GeoJSONLayer",
     ], (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
-        
-        const pointArrFeatureCollection = {
+	    
+	pointArrFeatureCollection={};
+        pointArrFeatureCollection = {
             type: "FeatureCollection",
             features: j2gConvert(locationData),
 	    bbox: [
@@ -219,12 +222,12 @@ class Map extends HTMLElement {
     return this._currentSelection;
   }
   
-  //function executed on initilisation
-  //function executed2 times. first returns default value of variable & initilisation variables data
+  //function executed on initialisation
+  //function executed 2 times. first returns default value of variable & initialisation variables data
   onCustomWidgetBeforeUpdate(oChangedProperties) {
     this.$servicelevel = oChangedProperties["servicelevel"];
     locationData = this.$servicelevel;
-    if (locationData) {
+    if (locationData && iniValue==0) {
       iniValue=1;
       processbeacons();
     }
@@ -237,6 +240,9 @@ class Map extends HTMLElement {
       this.$servicelevel = changedProperties['servicelevel'];
     }
     locationData = this.$servicelevel; // place passed in value into global
+    if (locationData && iniValue==1) {
+      processbeacons();
+    }
   }
 
   
