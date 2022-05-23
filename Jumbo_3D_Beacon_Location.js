@@ -179,11 +179,11 @@ class Map extends HTMLElement {
                     stops: [
                         {
                             value: 4,
-                            size: "80px",
+                            size: "8px",
                         },
                         {
                             value: 8,
-                            size: "400px",
+                            size: "40px",
                         },
                     ],
                 },
