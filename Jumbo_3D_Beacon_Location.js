@@ -113,7 +113,7 @@ function j2gConvert(jsonObject) {
         geojsonlayer = new GeoJSONLayer({
             url,
             popupTemplate: templates,
-            renderer: renderer,
+            renderer: renderer
         });
  
 
