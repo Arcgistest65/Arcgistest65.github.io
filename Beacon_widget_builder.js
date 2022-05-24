@@ -84,19 +84,35 @@
             }));
         }
 
-        get apikey() {
-            return this.getValue("apikey");
+        get PortalId() {
+            return this.getValue("portalId");
         }
-        set apikey(value) {
-            this.setValue("apikey", value);    
+        set PortalId(value) {
+            this.setValue("portalId", value);    
         }
-
-        get portalurl() {
-            return this.getValue("portalurl");
+        get BeaconColor() {
+            return this.getValue("BColor");
         }
-        set portalurl(value) {
-            this.setValue("portalurl", value);        
-        } 
+        set BeaconColor(value) {
+            this.setValue("BColor", value);    
+        }
+        get BOColor() {
+            return this.getValue("BOColor");
+        }
+        set BOColor(value) {
+            this.setValue("BOColor", value);    
+        }
+        get StartSize() {
+            return this.getValue("StartSize");
+        }
+        set StartSize(value) {
+            this.setValue("StartSize", value);    
+        }get StopSize() {
+            return this.getValue("StopSize");
+        }
+        set StopSize(value) {
+            this.setValue("StopSize", value);    
+        }
         
         getValue(id) {
             return this._shadowRoot.getElementById(id).value;
@@ -108,8 +124,11 @@
 
         static get observedAttributes() {
             return [
-                "apikey",
-                "portalurl"
+              "portalId",
+                "BColor",
+                "BOColor",
+                "StartSize",
+                "StopSize"
             ];
         }
 
@@ -119,5 +138,5 @@
             }
         }
     }
-    customElements.define("com-sap-custom-geomap-aps", restAPIAps);
+    customElements.define("com-sap-custom-geomap-builder", restAPIAps);
 })();
