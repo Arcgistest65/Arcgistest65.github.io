@@ -11,6 +11,11 @@ var renderer;
 var legend;
 var iniValue=0;
 var pointArrFeatureCollection;
+var gPortalID;
+var gBeaconColor;
+var gBOColor;
+var gBstartSize;
+var gBStopSize;
 	
 	
 
@@ -244,6 +249,33 @@ class Map extends HTMLElement {
       processbeacons();
     }
     }
+    var gPortalID;
+var gBeaconColor;
+var gBOColor;
+var gBstartSize;
+var gBStopSize;
+	  if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl;
+	  if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl;
+	  if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl;
+	  if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl;
+	  if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl;
+	  
+	  
   }
 
   
