@@ -249,31 +249,27 @@ class Map extends HTMLElement {
       processbeacons();
     }
     }
-    var gPortalID;
-var gBeaconColor;
-var gBOColor;
-var gBstartSize;
-var gBStopSize;
-	  if ("portalurl" in changedProperties) {
-                this.$portalurl = changedProperties["portalurl"];
+
+	  if ("portalId" in oChangedProperties) {
+                this.$portalId = oChangedProperties["portalId"];
             }
-            gPassedPortalURL = this.$portalurl;
-	  if ("portalurl" in changedProperties) {
-                this.$portalurl = changedProperties["portalurl"];
+            gPortalID = this.$portalId;
+	  if ("BColor" in oChangedProperties) {
+                this.$BColor = oChangedProperties["BColor"];
             }
-            gPassedPortalURL = this.$portalurl;
-	  if ("portalurl" in changedProperties) {
-                this.$portalurl = changedProperties["portalurl"];
+            gBeaconColor = this.$BColor;
+	  if ("BOColor" in oChangedProperties) {
+                this.$BOColor = oChangedProperties["BOColor"];
             }
-            gPassedPortalURL = this.$portalurl;
-	  if ("portalurl" in changedProperties) {
-                this.$portalurl = changedProperties["portalurl"];
+            gBOColor = this.$BOColor;
+	  if ("StartSize" in oChangedProperties) {
+                this.$StartSize = oChangedProperties["StartSize"];
             }
-            gPassedPortalURL = this.$portalurl;
-	  if ("portalurl" in changedProperties) {
-                this.$portalurl = changedProperties["portalurl"];
+            gBstartSize = this.$StartSize;
+	  if ("StopSize" in oChangedProperties) {
+                this.$StopSize = oChangedProperties["StopSize"];
             }
-            gPassedPortalURL = this.$portalurl;
+            gBStopSize = this.$StopSize;
 	  
 	  
   }
