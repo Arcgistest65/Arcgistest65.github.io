@@ -1,5 +1,4 @@
 (function () {
-    var gPassedAPIkey;
     let tmpl = document.createElement("template");
     tmpl.innerHTML = `
       <style>
@@ -27,16 +26,28 @@
       </style>
       <form id="form" autocomplete="off">
         <fieldset> 
-          <legend>GIS Widget Properties</legend>
+          <legend>Modification Panel</legend>
           <table>
             <tr>
-              <td><label for="apikey">API Key:</label></td>
-              <td><input id="apikey" name="apikey" type="text"></td>
+              <td><label for="portalId">Portal ID:</label></td>
+              <td><input id="portalId" name="portalId" type="text"></td>
             </tr>
             <tr>
-              <td><label for="portalurl">URL:</label></td>
-              <td><input id="portalurl" name="portalurl" type="text"></td>
-            </tr>      
+              <td><label for="BColor">Beacon Color:</label></td>
+              <td><input id="BColor" name="BColor" type="text"></td>
+            </tr> 
+            <tr>
+              <td><label for="BOColor">Beacon Outline Color:</label></td>
+              <td><input id="BOColor" name="BOColor" type="text"></td>
+            </tr>
+            <tr>
+              <td><label for="StartSize">Beacon Start Size:</label></td>
+              <td><input id="StartSize" name="StartSize" type="text"></td>
+            </tr>
+            <tr>
+              <td><label for="StopSize">Beacon Stop Size:</label></td>
+              <td><input id="StopSize" name="StopSize" type="text"></td>
+            </tr>
           </table>
         </fieldset>
         <button type="submit" hidden>Submit</button>
