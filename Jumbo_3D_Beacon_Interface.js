@@ -10,6 +10,7 @@ var templates;
 var renderer;
 var legend;
 var iniValue=0;
+var dataValue=0;
 var pointArrFeatureCollection;
 var gPortalID;
 var gBeaconColor;
@@ -271,6 +272,16 @@ class Map extends HTMLElement {
             }
             gBStopSize = this.$StopSize;
 	  
+	  if(!(gPortalID==null or gBeaconColor==null or gBOColor==null or gBstartSize==null or gBStopSize==0)){
+		  dataValue=1;
+	  }
+	  if (dataValue==1){
+		  console.log(gPortalID);
+		  console.log(gBeaconColor);
+		  console.log(gBOColor);
+		  console.log(gBstartSize);
+		  console.log(gBStopSize);
+	  }
 	  
   }
 
