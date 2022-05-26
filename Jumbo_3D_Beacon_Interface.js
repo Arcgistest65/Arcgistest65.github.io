@@ -272,7 +272,7 @@ class Map extends HTMLElement {
             }
             gBStopSize = this.$StopSize;
 	  
-	  if(!(gPortalID==null or gBeaconColor==null or gBOColor==null or gBstartSize==null or gBStopSize==null)){
+	  if(!(gPortalID==null || gBeaconColor==null || gBOColor==null || gBstartSize==null || gBStopSize==null)){
 		  dataValue=1;
 	  }
 	  if (dataValue==1){
