@@ -74,6 +74,7 @@ function j2gConvert(jsonObject) {
  //function inside class to create geojson beacons
  function processbeacons() {
     require([
+	    "esri/config",
         "esri/Map",
         "esri/views/SceneView",
         "esri/WebScene",
@@ -86,7 +87,7 @@ function j2gConvert(jsonObject) {
         "esri/Graphic",
         "esri/widgets/Legend",
         "esri/layers/GeoJSONLayer",
-    ], (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
+    ], (esriConfig,Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
 	    
 	pointArrFeatureCollection={};
         pointArrFeatureCollection = {
@@ -251,24 +252,24 @@ class Map extends HTMLElement {
     }
     }
 
-	  if ("portalId" in oChangedProperties) {
+	  if ("portalId" in changedProperties) {
                 this.$portalId = oChangedProperties["portalId"];
             }
             gPortalID = this.$portalId;
-	  if ("BColor" in oChangedProperties) {
-                this.$BColor = oChangedProperties["BColor"];
+	  if ("BColor" in changedProperties) {
+                this.$BColor = changedProperties["BColor"];
             }
             gBeaconColor = this.$BColor;
-	  if ("BOColor" in oChangedProperties) {
-                this.$BOColor = oChangedProperties["BOColor"];
+	  if ("BOColor" in changedProperties) {
+                this.$BOColor = changedProperties["BOColor"];
             }
             gBOColor = this.$BOColor;
-	  if ("StartSize" in oChangedProperties) {
-                this.$StartSize = oChangedProperties["StartSize"];
+	  if ("StartSize" in changedProperties) {
+                this.$StartSize = changedProperties["StartSize"];
             }
             gBstartSize = this.$StartSize;
-	  if ("StopSize" in oChangedProperties) {
-                this.$StopSize = oChangedProperties["StopSize"];
+	  if ("StopSize" in changedProperties) {
+                this.$StopSize = changedProperties["StopSize"];
             }
             gBStopSize = this.$StopSize;
 	  
@@ -282,6 +283,11 @@ class Map extends HTMLElement {
 		  console.log(gBstartSize);
 		  console.log(gBStopSize);
 	  }
+	  console.log(gPortalID);
+		  console.log(gBeaconColor);
+		  console.log(gBOColor);
+		  console.log(gBstartSize);
+		  console.log(gBStopSize);
 	  
   }
 
