@@ -135,8 +135,7 @@
           type: 'simple',
           field: 'name',
           symbol: {
-            //type: 'simple-marker',
-            type:'Payphone',
+            type: 'simple-marker',
             color: gBeaconColor,
             outline: {
               color: gBOColor,
