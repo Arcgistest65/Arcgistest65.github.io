@@ -87,7 +87,10 @@ function j2gConvert(jsonObject) {
         "esri/Graphic",
         "esri/widgets/Legend",
         "esri/layers/GeoJSONLayer",
-    ], (esriConfig,Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
+	    "esri/tasks/RouteTask",
+                "esri/tasks/support/RouteParameters",
+                "esri/tasks/support/FeatureSet",
+    ], (esriConfig,Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,RouteTask, RouteParameters, FeatureSet) => {
 	    
 	pointArrFeatureCollection={};
         pointArrFeatureCollection = {
