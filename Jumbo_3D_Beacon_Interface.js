@@ -10,7 +10,6 @@ var templates;
 var renderer;
 var legend;
 var iniValue = 0;
-var dataValue = 0;
 var pointArrFeatureCollection;
 var gPortalID;
 var gBeaconColor;
@@ -93,7 +92,7 @@ function processbeacons() {
        LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,
        RouteTask, RouteParameters, FeatureSet) => {
 	      
-	      
+	   iniValue=1;
 	      
 	// create the main map of type webscene
           webscene = new WebScene({
@@ -174,7 +173,7 @@ function processbeacons() {
         url = URL.createObjectURL(blob);
 
         if (iniValue !== 0) {
-          // remove previous geojsonlayer from webscene
+          
 
           // create a layer to hold the beacon coordinates
           geojsonlayer = new GeoJSONLayer(
@@ -259,17 +258,18 @@ class Map extends HTMLElement {
     gBStopSize = this.$StopSize;
 
     if (!(gPortalID == null || gBeaconColor == null || gBOColor == null ||
-          gBstartSize == null || gBStopSize == null)) {
-      dataValue = 1;
-      if ('servicelevel' in oChangedProperties) {
-        this.$servicelevel = oChangedProperties['servicelevel'];
-        locationData = this.$servicelevel;  // place passed in value into global
-        if (locationData && iniValue == 1) {
-          webscene.remove(geojsonlayer);
-          processbeacons();
+            gBstartSize == null || gBStopSize == null)) {
+        if ('servicelevel' in oChangedProperties) {
+          this.$servicelevel = oChangedProperties['servicelevel'];
+          locationData = this.$servicelevel;  // place passed in value into global
+          if (locationData) {
+              if(iniValue==1){// remove previous geojsonlayer from webscene
+                webscene.remove(geojsonlayer);
+              }
+            processbeacons();
+          }
         }
       }
-    }
   }
 
 
@@ -299,7 +299,8 @@ if (scriptStatus) {
     'src': scriptSrc,
     'status': 'loading',
     'callbacks': [onScriptLoaded]
-  } customElementScripts.push(scriptObject);
+  } 
+  customElementScripts.push(scriptObject);
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = scriptSrc;
