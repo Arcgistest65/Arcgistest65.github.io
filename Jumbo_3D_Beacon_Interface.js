@@ -255,24 +255,24 @@ class Map extends HTMLElement {
     }
     }
 
-	  if ("portalId" in changedProperties) {
+	  if ("portalId" in oChangedProperties) {
                 this.$portalId = oChangedProperties["portalId"];
             }
             gPortalID = this.$portalId;
-	  if ("BColor" in changedProperties) {
-                this.$BColor = changedProperties["BColor"];
+	  if ("BColor" in oChangedProperties) {
+                this.$BColor = oChangedProperties["BColor"];
             }
             gBeaconColor = this.$BColor;
-	  if ("BOColor" in changedProperties) {
-                this.$BOColor = changedProperties["BOColor"];
+	  if ("BOColor" in oChangedProperties) {
+                this.$BOColor = oChangedProperties["BOColor"];
             }
             gBOColor = this.$BOColor;
-	  if ("StartSize" in changedProperties) {
-                this.$StartSize = changedProperties["StartSize"];
+	  if ("StartSize" in oChangedProperties) {
+                this.$StartSize = oChangedProperties["StartSize"];
             }
             gBstartSize = this.$StartSize;
-	  if ("StopSize" in changedProperties) {
-                this.$StopSize = changedProperties["StopSize"];
+	  if ("StopSize" in oChangedProperties) {
+                this.$StopSize = oChangedProperties["StopSize"];
             }
             gBStopSize = this.$StopSize;
 	  
