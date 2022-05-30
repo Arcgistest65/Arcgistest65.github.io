@@ -92,6 +92,8 @@ function processbeacons() {
        LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,
        RouteTask, RouteParameters, FeatureSet) => {
 	      
+	      console.log("inside function");
+	      
 	   iniValue=1;
 	      
 	// create the main map of type webscene
@@ -213,6 +215,16 @@ class Map extends HTMLElement {
         ],
         (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList,
          request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
+		
+		 webscene = new WebScene({
+          });
+
+
+          // add the WebScene to the SceneView layer(Layer displayed)
+          viewLayer = new SceneView({
+            container: 'viewDiv',
+            map: webscene,
+          });
           
 
         });
