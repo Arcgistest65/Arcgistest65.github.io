@@ -29,7 +29,7 @@
           <legend>Modification Panel</legend>
           <table>
             <tr>
-              <td><label for="portalId">Portal ID:</label></td>
+              <td><label for="portalId">Webscene ID:</label></td>
               <td><input id="portalId" name="portalId" type="text"></td>
             </tr>
             <tr>
@@ -47,6 +47,14 @@
             <tr>
               <td><label for="StopSize">Beacon Stop Size:</label></td>
               <td><input id="StopSize" name="StopSize" type="text"></td>
+            </tr>
+            <tr>
+              <td><label for="legendOption">legend Option</label></td>
+              <td><input id="legendOption" name="legendOption" type="text"></td>
+            </tr>
+            <tr>
+              <td><label for="layerOption">Layer Option:</label></td>
+              <td><input id="layerOption" name="layerOption" type="text"></td>
             </tr>
           </table>
         </fieldset>
@@ -124,6 +132,18 @@
         set StopSize(value) {
             this.setValue("StopSize", value);    
         }
+        get layerOption() {
+            return this.getValue("layerOption");
+        }
+        set layerOption(value) {
+            this.setValue("layerOption", value);    
+        }
+        get legendOption() {
+            return this.getValue("legendOption");
+        }
+        set legendOption(value) {
+            this.setValue("legendOption", value);    
+        }
         
         getValue(id) {
             return this._shadowRoot.getElementById(id).value;
@@ -139,7 +159,9 @@
                 "BColor",
                 "BOColor",
                 "StartSize",
-                "StopSize"
+                "StopSize",
+                "legendOption",
+                "layerOption"
             ];
         }
 
