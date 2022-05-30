@@ -189,8 +189,9 @@ function processbeacons() {
 	      
 	   iniValue=1;
 	      
-	
-	      
+	 console.log(locationData);
+	      console.log(" ");
+	     	 console.log(j2gConvert(locationData));
 	
         pointArrFeatureCollection = {};
         pointArrFeatureCollection = {
