@@ -112,7 +112,7 @@
           map: webscene,
         });
 
-        if (legendOption == "on") {
+        if (glegendOption == "on") {
           // display a key on the screen containing all shapes in map
           legend = new Legend({
             view: viewLayer,
@@ -215,7 +215,7 @@
           renderer: renderer
         });
 
-        if (layerOption == "on") {
+        if (glayerOption == "on") {
           // add the beacons to the webscene
           webscene.add(geojsonlayer);
           iniValue = 1;
