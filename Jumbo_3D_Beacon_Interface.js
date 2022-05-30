@@ -66,10 +66,9 @@ function j2gConvert(jsonObject) {
 
   return geoJSONPointArr;
 }
-
-// function inside class to create geojson beacons
-function processbeacons() {
-  require(
+	
+function mainMap(){
+require(
       [
         'esri/config',
         'esri/Map',
@@ -91,10 +90,6 @@ function processbeacons() {
       (esriConfig, Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
        LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,
        RouteTask, RouteParameters, FeatureSet) => {
-	      
-	      console.log("inside function");
-	      
-	   iniValue=1;
 	      
 	// create the main map of type webscene
           webscene = new WebScene({
@@ -153,7 +148,48 @@ function processbeacons() {
                 ],
               },
             ],
-          };
+          };      
+	      
+	      
+	      
+
+
+
+
+ });
+
+}
+
+// function inside class to create geojson beacons
+function processbeacons() {
+  require(
+      [
+        'esri/config',
+        'esri/Map',
+        'esri/views/SceneView',
+        'esri/WebScene',
+        'esri/Basemap',
+        'esri/layers/FeatureLayer',
+        'esri/widgets/LayerList',
+        'esri/request',
+        'dojo/domReady!',
+        'esri/layers/GraphicsLayer',
+        'esri/Graphic',
+        'esri/widgets/Legend',
+        'esri/layers/GeoJSONLayer',
+        'esri/tasks/RouteTask',
+        'esri/tasks/support/RouteParameters',
+        'esri/tasks/support/FeatureSet',
+      ],
+      (esriConfig, Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
+       LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,
+       RouteTask, RouteParameters, FeatureSet) => {
+	      
+	      console.log("inside function");
+	      
+	   iniValue=1;
+	      
+	
 	      
 	
         pointArrFeatureCollection = {};
@@ -173,10 +209,7 @@ function processbeacons() {
 
         // URL reference to the blob
         url = URL.createObjectURL(blob);
-
-        if (iniValue !== 0) {
           
-
           // create a layer to hold the beacon coordinates
           geojsonlayer = new GeoJSONLayer(
               {url, popupTemplate: templates, renderer: renderer});
@@ -185,16 +218,6 @@ function processbeacons() {
           // add the beacons to the webscene
           webscene.add(geojsonlayer);
 
-        } else {
-          // create a layer to hold the beacon coordinates
-          geojsonlayer = new GeoJSONLayer(
-              {url, popupTemplate: templates, renderer: renderer});
-
-
-          // add the beacons to the webscene
-          webscene.add(geojsonlayer);
-
-        }  // end of if
       });
 }  // end of function bracket
 
@@ -230,6 +253,8 @@ class Map extends HTMLElement {
   onCustomWidgetBeforeUpdate(oChangedProperties) {
     this.$chartData = oChangedProperties['chartData'];
     locationData = this.$chartData;
+	if(locationData && !(gPortalID==null))
+		mainMap();
   }
 
   ////function executed on variable updates
@@ -259,13 +284,14 @@ class Map extends HTMLElement {
         if ('chartData' in oChangedProperties) {
           this.$chartData = oChangedProperties['chartData'];
           locationData = this.$chartData;  // place passed in value into global
-          if (locationData) {
+          
+        }
+	 if (locationData) {
               if(iniValue==1){// remove previous geojsonlayer from webscene
                 webscene.remove(geojsonlayer);
               }
-            processbeacons();
+		processbeacons();
           }
-        }
       }
   }
 
