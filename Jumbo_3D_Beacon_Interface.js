@@ -228,10 +228,6 @@ class Map extends HTMLElement {
   onCustomWidgetBeforeUpdate(oChangedProperties) {
     this.$servicelevel = oChangedProperties['servicelevel'];
     locationData = this.$servicelevel;
-    if (locationData && iniValue == 0) {
-      iniValue = 1;
-      processbeacons();
-    }
   }
 
   ////function executed on variable updates
