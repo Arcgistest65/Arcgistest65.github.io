@@ -95,16 +95,16 @@
             }));
         }
 
-        get PortalId() {
+        get portalId() {
             return this.getValue("portalId");
         }
-        set PortalId(value) {
+        set portalId(value) {
             this.setValue("portalId", value);    
         }
-        get BeaconColor() {
+        get BColor() {
             return this.getValue("BColor");
         }
-        set BeaconColor(value) {
+        set BColor(value) {
             this.setValue("BColor", value);    
         }
         get BOColor() {
