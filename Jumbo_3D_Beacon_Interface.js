@@ -16,6 +16,7 @@ var gBeaconColor;
 var gBOColor;
 var gBstartSize;
 var gBStopSize;
+var mapValue=0;
 
 
 
@@ -90,6 +91,8 @@ require(
       (esriConfig, Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer,
        LayerList, request, GraphicsLayer, Graphic, Legend, GeoJSONLayer,
        RouteTask, RouteParameters, FeatureSet) => {
+	   
+	      mapValue=1;
 	      
 	// create the main map of type webscene
           webscene = new WebScene({
@@ -254,7 +257,7 @@ class Map extends HTMLElement {
   onCustomWidgetBeforeUpdate(oChangedProperties) {
     this.$chartData = oChangedProperties['chartData'];
     locationData = this.$chartData;
-	if(locationData && !(gPortalID==null))
+	if(locationData && !(gPortalID==null) && mapValue==0)
 		mainMap();
   }
 
