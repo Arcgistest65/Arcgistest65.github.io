@@ -139,11 +139,11 @@ require(
                 stops: [
                   {
                     value: 4,
-                    size: 'gBstartSize',
+                    size: gBstartSize,
                   },
                   {
                     value: 8,
-                    size: 'gBStopSize',
+                    size: gBStopSize,
                   },
                 ],
               },
