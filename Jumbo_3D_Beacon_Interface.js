@@ -216,16 +216,6 @@ class Map extends HTMLElement {
         (Map, SceneView, WebScene, Basemap, TileLayer, FeatureLayer, LayerList,
          request, GraphicsLayer, Graphic, Legend, GeoJSONLayer) => {
 		
-		 webscene = new WebScene({
-          });
-
-
-          // add the WebScene to the SceneView layer(Layer displayed)
-          viewLayer = new SceneView({
-            container: 'viewDiv',
-            map: webscene,
-          });
-          
 
         });
   }  // end of constructor()
@@ -238,8 +228,8 @@ class Map extends HTMLElement {
   // function executed 2 times. first returns default value of variable &
   // initialisation variables data
   onCustomWidgetBeforeUpdate(oChangedProperties) {
-    this.$servicelevel = oChangedProperties['servicelevel'];
-    locationData = this.$servicelevel;
+    this.$chartData = oChangedProperties['chartData'];
+    locationData = this.$chartData;
   }
 
   ////function executed on variable updates
@@ -265,11 +255,10 @@ class Map extends HTMLElement {
     }
     gBStopSize = this.$StopSize;
 
-    if (!(gPortalID == null || gBeaconColor == null || gBOColor == null ||
-            gBstartSize == null || gBStopSize == null)) {
-        if ('servicelevel' in oChangedProperties) {
-          this.$servicelevel = oChangedProperties['servicelevel'];
-          locationData = this.$servicelevel;  // place passed in value into global
+    if (!(gPortalID == null || gBeaconColor == null || gBOColor == null || gBstartSize == null || gBStopSize == null)) {
+        if ('chartData' in oChangedProperties) {
+          this.$chartData = oChangedProperties['chartData'];
+          locationData = this.$chartData;  // place passed in value into global
           if (locationData) {
               if(iniValue==1){// remove previous geojsonlayer from webscene
                 webscene.remove(geojsonlayer);
