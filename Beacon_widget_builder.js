@@ -4,7 +4,6 @@
       <style>
           fieldset {
               margin-bottom: 10px;
-              padding: 50px;
               border: 1px solid #afafaf;
               border-radius: 3px;
           }
@@ -14,7 +13,7 @@
           input, textarea, select {
               font-family: "72",Arial,Helvetica,sans-serif;
               width: 100%;
-              padding: 4px;
+              padding: 10px;
               box-sizing: border-box;
               border: 1px solid #bfbfbf;
           }
