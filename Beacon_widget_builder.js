@@ -4,7 +4,7 @@
       <style>
           fieldset {
               margin-bottom: 10px;
-              padding: 10px;
+              padding: 50px;
               border: 1px solid #afafaf;
               border-radius: 3px;
           }
