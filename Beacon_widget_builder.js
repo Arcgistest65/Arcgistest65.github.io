@@ -3,13 +3,13 @@
     tmpl.innerHTML = `
       <style>
           fieldset {
-              padding : 20px;
               margin-bottom: 10px;
               border: 1px solid #afafaf;
               border-radius: 3px;
           }
           table {
               width: 100%;
+              padding : 20px;
           }
           input, textarea, select {
               font-family: "72",Arial,Helvetica,sans-serif;
