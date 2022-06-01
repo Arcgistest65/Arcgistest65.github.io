@@ -13,13 +13,14 @@
           input, textarea, select {
               font-family: "72",Arial,Helvetica,sans-serif;
               width: 100%;
-             
+              padding: 5px;
               box-sizing: border-box;
               border: 1px solid #bfbfbf;
           }
           input[type=checkbox] {
               width: inherit;
               margin: 6px 3px 6px 0;
+              padding: 5px;
               vertical-align: middle;
           }
           
