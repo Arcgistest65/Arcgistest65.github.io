@@ -13,7 +13,7 @@
           input, textarea, select {
               font-family: "72",Arial,Helvetica,sans-serif;
               width: 100%;
-              padding: 10px;
+              padding: 10px !important;
               box-sizing: border-box;
               border: 1px solid #bfbfbf;
           }
