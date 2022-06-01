@@ -3,6 +3,7 @@
     tmpl.innerHTML = `
       <style>
           fieldset {
+              padding : 20px;
               margin-bottom: 10px;
               border: 1px solid #afafaf;
               border-radius: 3px;
