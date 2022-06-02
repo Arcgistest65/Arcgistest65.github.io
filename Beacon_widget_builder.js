@@ -164,8 +164,7 @@
                 "StartSize",
                 "StopSize",
                 "legendOption",
-                "layerOption",
-                "bgOption"
+                "layerOption"
             ];
         }
 
