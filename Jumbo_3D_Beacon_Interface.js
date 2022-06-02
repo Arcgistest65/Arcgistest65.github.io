@@ -58,7 +58,7 @@
       return {
         type: 'Feature',
         geometry: {
-          type: 'Point',
+          type: row.Geometry_Type,
           coordinates: removeString(row.Geometry_coordinates)
         },
         properties: {
