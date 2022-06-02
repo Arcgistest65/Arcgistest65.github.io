@@ -4,6 +4,7 @@
       <style>
           fieldset {
               margin-bottom: 10px;
+              padding: 4px;
               border: 1px solid #afafaf;
               border-radius: 3px;
           }
@@ -56,10 +57,6 @@
             <tr>
               <td><label for="layerOption">Layer Option:</label></td>
               <td><input id="layerOption" name="layerOption" type="text"></td>
-            </tr>
-            <tr>
-              <td><label for="bgOption">Bg Option:</label></td>
-              <td><input id="bgOption" name="bgOption" type="text"></td>
             </tr>
           </table>
         </fieldset>
@@ -149,12 +146,7 @@
         set legendOption(value) {
             this.setValue("legendOption", value);    
         }
-         get bgOption() {
-            return this.getValue("bgOption");
-        }
-        set bgOption(value) {
-            this.setValue("bgOption", value);    
-        }
+        
         
         getValue(id) {
             return this._shadowRoot.getElementById(id).value;
