@@ -62,10 +62,10 @@
           coordinates: removeString(row.Geometry_coordinates)
         },
         properties: {
-          beaconId: row.Properties_name_1,
-          aisle_name: row.Properties_Add_details,
+          beaconId: row.beaconID,
+          aisle_name: row.beaconName,
         },
-        id: parseFloat(row.Properties_name_1),
+        id: parseFloat(row.beaconID),
       };
     });
 
