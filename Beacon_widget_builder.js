@@ -150,6 +150,12 @@
         set legendOption(value) {
             this.setValue("legendOption", value);    
         }
+        get layerOption() {
+            return this.getValue("layerOption");
+        }
+        set layerOption(value) {
+            this.setValue("layerOption", value);    
+        }
         
         
         getValue(id) {
@@ -168,6 +174,7 @@
                 "StartSize",
                 "StopSize",
                 "legendOption",
+                "layerOption"
                 "layerOption"
             ];
         }
