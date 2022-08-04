@@ -153,8 +153,7 @@
         get layerOption() {
             return this.getValue("layerOption");
         }
-        set layerOption(value) {
-            this.setValue("layerOption", value);    
+      
         }
         
         
@@ -174,7 +173,6 @@
                 "StartSize",
                 "StopSize",
                 "legendOption",
-                "layerOption"
                 "layerOption"
             ];
         }
